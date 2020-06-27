@@ -31,8 +31,8 @@
                 <br><br>
                 <div class="container text-left">
                     <form action="Peliculas" method="post">
-                        <input name="link" type="submit" value="Recargar" class="btn btn-success">
                         <input name="link" type="submit" value="Agregar" class="btn btn-success">
+                        <input name="link" type="submit" value="Mis peliculas vendidas" class="btn btn-primary">
                     </form>
                 </div>
 
@@ -48,7 +48,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <form action="Controller" method="post">
+                    <form action="Peliculas" method="post">
                         <c:forEach var="pelicula" items="${listPeliculas}">          
                             <tr>
                                 <td><c:out value="${pelicula.id}" /></td>
@@ -57,15 +57,15 @@
                                 <td><c:out value="${pelicula.categoria}" /></td>
                                 <td><c:out value="${pelicula.director}" /></td>
                                 <td><c:out value="${pelicula.recaudacion}" /></td>
-                                <td><button type="submit" name="link" id class="btn btn-success" value="Edit/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Editar</button>
-                                    &nbsp;&nbsp;&nbsp;&nbsp; <a
-                                        <td><button type="submit" name="link" id class="btn btn-success" value="Delete/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Eliminar</button>
-                                            </tr>
-                                        </c:forEach>
-                                        </form>
-                                        </tbody>
-                                        </table>
-                                        </div>
-                                        </div>
-                                        </body>
-                                        </html>
+                                <td><button  type="submit" name="link" id class="btn btn-warning" value="Edit/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Editar</button>
+                                <td><button type="submit" name="link" id class="btn btn-danger" value="Delete/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Eliminar</button>
+                                <td><button type="submit" name="link" id class="btn btn-info" value="Sell/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Vender</button>
+                            </tr>
+                        </c:forEach>
+                    </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

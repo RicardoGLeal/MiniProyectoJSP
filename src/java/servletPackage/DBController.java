@@ -291,7 +291,8 @@ public class DBController {
         return videojuegos;
     }
     
-     public boolean selectUser(String user, String password) {
+    
+    public boolean selectUser(String user, String password) {
         ResultSet result;
         try {
             PreparedStatement stmt = con.prepareStatement("SELECT userid FROM usuario WHERE usuario = ? and password = ?");

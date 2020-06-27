@@ -12,11 +12,11 @@
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
                 <div>
-                    <a href="<%=request.getContextPath()%>/Videojuegos" class="navbar-brand"> Videojuegos </a>
+                    <a href="<%=request.getContextPath()%>/Libros" class="navbar-brand"> Libros </a>
                 </div>
 
                 <ul class="navbar-nav">
-                    <li><a href="<%=request.getContextPath()%>/Videojuegos" class="nav-link">Videojuegos</a></li>
+                    <li><a href="<%=request.getContextPath()%>/Libros" class="nav-link">Libros</a></li>
                 </ul>
             </nav>
         </header>
@@ -27,37 +27,37 @@
                     <form action="Videojuegos" method="post">
                         <caption>
                             <h2>
-                                <c:if test="${videojuego != null}">
-                                    Editar Videojuego
+                                <c:if test="${libro != null}">
+                                    Editar Libro
                                 </c:if>
-                                <c:if test="${videojuego == null}">
-                                    Agregar Videojuego
+                                <c:if test="${libro == null}">
+                                    Agregar Libro
                                 </c:if>
                             </h2>
                         </caption>
 
-                        <c:if test="${videojuego != null}">
-                            <input type="hidden" name="id" value="<c:out value='${videojuego.id}' />" />
+                        <c:if test="${libro != null}">
+                            <input type="hidden" name="id" value="<c:out value='${libro.id}' />" />
                         </c:if>
                         <fieldset class="form-group">
-                            <label>Título</label> <input type="text" value="<c:out value='${videojuego.titulo}' />" class="form-control" name="nombre" required="required">
+                            <label>Título</label> <input type="text" value="<c:out value='${libro.titulo}' />" class="form-control" name="nombre" required="required">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Año</label> <input type="number" value="<c:out value='${videojuego.año}' />" class="form-control" name="año">
+                            <label>Año</label> <input type="number" value="<c:out value='${libro.año}' />" class="form-control" name="año">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Desarrollador</label> <input type="text" value="<c:out value='${videojuego.desarrollador}' />" class="form-control" name="desarrollador">
+                            <label>Autor</label> <input type="text" value="<c:out value='${libro.autor}' />" class="form-control" name="desarrollador">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Distribuidora</label> <input type="text"value="<c:out value='${videojuego.distribuidora}' />" class="form-control" name="distribuidora">
+                            <label>Sinopsis</label> <input type="text"value="<c:out value='${libro.sinopsis}' />" class="form-control" name="distribuidora">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Clasificacion</label> <input type="text"value="<c:out value='${videojuego.clasificacion}' />" class="form-control" name="clasificacion">
+                            <label>Editorial</label> <input type="text"value="<c:out value='${libro.editorial}' />" class="form-control" name="clasificacion">
                         </fieldset>
-                        <c:if test="${videojuego != null}">
-                            <button name="link" type="submit" class="btn btn-success" value="Update/<c:out value='${videojuego.id}' />">Actualizar</button>
+                        <c:if test="${libro != null}">
+                            <button name="link" type="submit" class="btn btn-success" value="Update/<c:out value='${libro.id}' />">Actualizar</button>
                         </c:if>
-                        <c:if test="${videojuego == null}">
+                        <c:if test="${libro == null}">
                             <button name="link" type="submit" class="btn btn-success" value="Insert">Guardar</button>
                         </c:if>
                     </form>

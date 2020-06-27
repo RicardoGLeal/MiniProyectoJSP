@@ -105,7 +105,7 @@ public class Peliculas extends HttpServlet {
                         updateDireccion(request, response, Integer.parseInt(splitedLink[1]));
                         break;
                     case "Delete":
-                        DeleteDirection(request, response, Integer.parseInt(splitedLink[1]));
+                        Delete(request, response, Integer.parseInt(splitedLink[1]));
                         break;
                     default:
                         ShowPeliculas(request, response);
@@ -190,9 +190,9 @@ public class Peliculas extends HttpServlet {
      * @throws IOException
      * @throws SQLException
      */
-    private void DeleteDirection(HttpServletRequest request, HttpServletResponse response, int id) 
+    private void Delete(HttpServletRequest request, HttpServletResponse response, int id) 
             throws IOException, SQLException{
-        //con.eliminarDireccion(id);
+        con.eliminarPelicula(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         try {
             dispatcher.forward(request, response);
@@ -221,9 +221,9 @@ public class Peliculas extends HttpServlet {
      */
     private void showEditForm(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-        //Direccion direccion = con.consultarDirecciones("id", id).get(0);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("direction-form.jsp");
-        //request.setAttribute("direction", direccion);
+        Pelicula pelicula = con.obtenerPeliculas(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/create.jsp");
+        request.setAttribute("pelicula", pelicula);
         dispatcher.forward(request, response);
     }
 
