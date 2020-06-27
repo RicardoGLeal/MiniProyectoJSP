@@ -14,12 +14,14 @@ public class VentaVideojuego {
     private int precio;
     private int idUser;
     private int videojuegoId;
+    public Videojuego videojuego;
 
-    public VentaVideojuego(int id, int precio, int idUser, int videojuegoId) {
+    public VentaVideojuego(int id, int precio, int idUser, int videojuegoId, Videojuego videojuego) {
         this.id = id;
         this.precio = precio;
         this.idUser = idUser;
         this.videojuegoId = videojuegoId;
+        this.videojuego = videojuego;
     }
     
     public VentaVideojuego(int precio, int idUser, int videojuegoId) {

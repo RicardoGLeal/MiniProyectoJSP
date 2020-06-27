@@ -113,6 +113,8 @@ public class Peliculas extends HttpServlet {
                         break;
                     case "Sold":
                         Sold(request, response, Integer.parseInt(splitedLink[1]));
+                    case "Mis peliculas vendidas":
+                        misPelisVendidas(request, response);
                     default:
                         ShowPeliculas(request, response);
                         break;
@@ -151,6 +153,9 @@ public class Peliculas extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    
+ 
+    
     /**
      * Función insertDirection.
      * Se manda llamar cuando se da click en el botón de Guardar, el cual desde
@@ -270,5 +275,12 @@ public class Peliculas extends HttpServlet {
         } catch (IOException ex) {
             Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    private void misPelisVendidas(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException{
+        List<VentaPelicula> peliculas = con.obtenerVentaPeliculaUser(0);
+        request.setAttribute("listPeliculas", peliculas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/mispeliculas.jsp");
+        dispatcher.forward(request, response);
     }
 }
