@@ -56,8 +56,6 @@ public class Login extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        
     }
     
         // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,10 +90,12 @@ public class Login extends HttpServlet {
         if (link.equals("Login")) {
             String user = request.getParameter("User");
             String password = request.getParameter("Password");
-            if (dbc.selectUser(user, password)) {
+            int id = dbc.selectUser(user, password);
+            if (id!=0) {
                 //request.setAttribute("user", user);
                 HttpSession session = request.getSession(true);
                 session.setAttribute("user", user);
+                session.setAttribute("id", id);
                 response.sendRedirect("Main");
             } else {
                 request.setAttribute("failedLogging", true);

@@ -712,20 +712,21 @@ public class DBController {
     }
     
     
-    public boolean selectUser(String user, String password) {
+    public int selectUser(String user, String password) {
         ResultSet result;
         try {
             PreparedStatement stmt = con.prepareStatement("SELECT userid FROM usuario WHERE usuario = ? and password = ?");
             stmt.setString(1, user);
             stmt.setString(2, password);
             result = stmt.executeQuery();
-            if(!result.first())
-                return false;
-                
+            if (!result.first()) {
+                return 0;
+            } else {
+                return result.getInt("userid");
+            }
         } catch (SQLException e) {
             System.out.println("No se encontraron resultados");
-            return false;
+            return 0;
         }
-        return true;
     }
 }
