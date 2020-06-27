@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -93,10 +94,9 @@ public class Login extends HttpServlet {
             String password = request.getParameter("Password");
             if (dbc.selectUser(user, password)) {
                 //request.setAttribute("user", user);
-                RequestDispatcher rd = request.getRequestDispatcher("Main");
-                rd.forward(request, response);
-                //response.sendRedirect("Main");
-                //dispatcher = request.getRequestDispatcher("/Main/index.jsp");
+                HttpSession session = request.getSession(true);
+                session.setAttribute("user", user);
+                response.sendRedirect("Main");
             } else {
                 request.setAttribute("failedLogging", true);
                 dispatcher = request.getRequestDispatcher("index.jsp");
