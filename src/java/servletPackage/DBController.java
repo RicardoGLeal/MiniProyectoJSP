@@ -442,12 +442,16 @@ public class DBController {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM venta_libro");   
             result = stmt.executeQuery();
             
+            int id = result.getInt("libroid");
+            Libro libro = obtenerLibro(id);
+            
             while(result.next()){
                 VentaLibro p = new VentaLibro(
                         result.getInt("id"),
                         result.getInt("precio"),
                         result.getInt("userid"),
-                        result.getInt("libroid")
+                        result.getInt("libroid"),
+                        libro
                 );
                 
                 ventaLibros.add(p);
@@ -472,15 +476,16 @@ public class DBController {
         return null;
     }
     
-    public VentaLibro obtenerVentaLibroUser(int id){
+    public ArrayList<VentaLibro> obtenerVentaLibroUser(int id){
         ArrayList<VentaLibro> ventas = new ArrayList<VentaLibro>(obtenerVentaLibros());
+        ArrayList<VentaLibro> v = new ArrayList<VentaLibro>();
         
         for(int i = 0; i<ventas.size(); i++){
             if(ventas.get(i).getIdUser() == id)
-                return ventas.get(i);
+                v.add(ventas.get(i));
         }
         
-        return null;
+        return v;
     }
     
     
@@ -557,11 +562,16 @@ public class DBController {
             result = stmt.executeQuery();
             
             while(result.next()){
+                
+                int peliId = result.getInt("peliculaid");
+                Pelicula peli = obtenerPelicula(peliId);
+                
                 VentaPelicula p = new VentaPelicula(
                         result.getInt("id"),
                         result.getInt("precio"),
                         result.getInt("userid"),
-                        result.getInt("peliculaid")
+                        result.getInt("peliculaid"),
+                        peli
                 );
                 
                 ventaPeliculas.add(p);
@@ -586,15 +596,16 @@ public class DBController {
         return null;
     }
     
-    public VentaPelicula obtenerVentaPeliculaUser(int id){
+    public ArrayList<VentaPelicula> obtenerVentaPeliculaUser(int id){
         ArrayList<VentaPelicula> ventas = new ArrayList<VentaPelicula>(obtenerVentaPeliculas());
+        ArrayList<VentaPelicula> v = new ArrayList<VentaPelicula>();
         
         for(int i = 0; i<ventas.size(); i++){
             if(ventas.get(i).getIdUser() == id)
-                return ventas.get(i);
+                v.add(ventas.get(i));
         }
         
-        return null;
+        return v;
     }
     
     
@@ -670,12 +681,16 @@ public class DBController {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM venta_videojuego");   
             result = stmt.executeQuery();
             
+            int id = result.getInt("videojuegoid");
+            Videojuego videojuego = obtenerVideojuego(id);
+            
             while(result.next()){
                 VentaVideojuego p = new VentaVideojuego(
                         result.getInt("id"),
                         result.getInt("precio"),
                         result.getInt("userid"),
-                        result.getInt("videojuegoid")
+                        result.getInt("videojuegoid"),
+                        videojuego
                 );
                 
                 ventaVideojuegos.add(p);
@@ -700,32 +715,34 @@ public class DBController {
         return null;
     }
     
-    public VentaVideojuego obtenerVentaVideoJuegoUser(int id){
+    public ArrayList<VentaVideojuego> obtenerVentaVideoJuegoUser(int id){
         ArrayList<VentaVideojuego> ventas = new ArrayList<VentaVideojuego>(obtenerVentaVideoJuegos());
+        ArrayList<VentaVideojuego> v = new ArrayList<VentaVideojuego>();
         
         for(int i = 0; i<ventas.size(); i++){
             if(ventas.get(i).getIdUser() == id)
-                return ventas.get(i);
+                v.add(ventas.get(i));
         }
         
-        return null;
+        return v;
     }
     
     
-    public boolean selectUser(String user, String password) {
+    public int selectUser(String user, String password) {
         ResultSet result;
         try {
             PreparedStatement stmt = con.prepareStatement("SELECT userid FROM usuario WHERE usuario = ? and password = ?");
             stmt.setString(1, user);
             stmt.setString(2, password);
             result = stmt.executeQuery();
-            if(!result.first())
-                return false;
-                
+            if (!result.first()) {
+                return 0;
+            } else {
+                return result.getInt("userid");
+            }
         } catch (SQLException e) {
             System.out.println("No se encontraron resultados");
-            return false;
+            return 0;
         }
-        return true;
     }
 }

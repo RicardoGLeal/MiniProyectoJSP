@@ -1,6 +1,7 @@
 package servletPackage;
 
 import Models.Pelicula;
+import Models.VentaPelicula;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -106,6 +108,13 @@ public class Peliculas extends HttpServlet {
                     case "Delete":
                         Delete(request, response, Integer.parseInt(splitedLink[1]));
                         break;
+                    case "Sell":
+                        Sell(request, response, Integer.parseInt(splitedLink[1]));
+                        break;
+                    case "Sold":
+                        Sold(request, response, Integer.parseInt(splitedLink[1]));
+                    case "Mis peliculas vendidas":
+                        misPelisVendidas(request, response);
                     default:
                         ShowPeliculas(request, response);
                         break;
@@ -144,6 +153,9 @@ public class Peliculas extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    
+ 
+    
     /**
      * Función insertDirection.
      * Se manda llamar cuando se da click en el botón de Guardar, el cual desde
@@ -165,15 +177,7 @@ public class Peliculas extends HttpServlet {
         String director = request.getParameter("director");
         float recaudacion = Float.parseFloat(request.getParameter("recaudacion"));
         con.insertarPelicula(new Pelicula(nombre,año,categoria,director,recaudacion));
-       // RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
-                response.sendRedirect("Peliculas");
-
-        /*try {
-            dispatcher.forward(request, response);
-        } catch (ServletException ex) {
-            Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-
+        response.sendRedirect("Peliculas");
     }
 
     /**
@@ -252,5 +256,31 @@ public class Peliculas extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
         dispatcher.forward(request, response);
     }
-    
+
+    private void Sell(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException {
+        Pelicula pelicula = con.obtenerPelicula(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/sell.jsp");
+        request.setAttribute("pelicula", pelicula);
+        dispatcher.forward(request, response);
+
+    }
+
+    private void Sold(HttpServletRequest request, HttpServletResponse response, int peliculaID) {
+        int precio = Integer.parseInt(request.getParameter("precio"));
+        HttpSession session = (HttpSession) request.getSession();
+        int userid = Integer.parseInt(session.getAttribute("id").toString());
+        con.insertarVentaPelicula(new VentaPelicula(precio, userid, peliculaID) );
+        try {
+            response.sendRedirect("Peliculas");
+        } catch (IOException ex) {
+            Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    private void misPelisVendidas(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException{
+        List<VentaPelicula> peliculas = con.obtenerVentaPeliculaUser(0);
+        request.setAttribute("listPeliculas", peliculas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/mispeliculas.jsp");
+        dispatcher.forward(request, response);
+    }
 }
