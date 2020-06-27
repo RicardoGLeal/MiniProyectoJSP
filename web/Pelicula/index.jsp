@@ -57,7 +57,7 @@
                                 <td><c:out value="${pelicula.categoria}" /></td>
                                 <td><c:out value="${pelicula.director}" /></td>
                                 <td><c:out value="${pelicula.recaudacion}" /></td>
-                                <td><button  type="submit" name="link" id class="btn btn-warning" value="Edit/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Editar</button>
+                                <td><button type="submit" name="link" id class="btn btn-warning" value="Edit/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Editar</button>
                                 <td><button type="submit" name="link" id class="btn btn-danger" value="Delete/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Eliminar</button>
                                 <td><button type="submit" name="link" id class="btn btn-info" value="Sell/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Vender</button>
                             </tr>

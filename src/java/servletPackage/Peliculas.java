@@ -63,7 +63,6 @@ public class Peliculas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-           
         try {
             ShowPeliculas(request, response);
         } catch (SQLException ex) {
@@ -167,7 +166,7 @@ public class Peliculas extends HttpServlet {
         float recaudacion = Float.parseFloat(request.getParameter("recaudacion"));
         con.insertarPelicula(new Pelicula(nombre,año,categoria,director,recaudacion));
        // RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
-                response.sendRedirect("Main");
+                response.sendRedirect("Peliculas");
 
         /*try {
             dispatcher.forward(request, response);
@@ -193,12 +192,8 @@ public class Peliculas extends HttpServlet {
     private void Delete(HttpServletRequest request, HttpServletResponse response, int id) 
             throws IOException, SQLException{
         con.eliminarPelicula(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException ex) {
-            Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        response.sendRedirect("Peliculas");
+
     }
 
     /**
@@ -221,23 +216,22 @@ public class Peliculas extends HttpServlet {
      */
     private void showEditForm(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-        Pelicula pelicula = con.obtenerPeliculas(id);
+        Pelicula pelicula = con.obtenerPelicula(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/create.jsp");
         request.setAttribute("pelicula", pelicula);
         dispatcher.forward(request, response);
+        
     }
 
     private void updateDireccion(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-        String calle = request.getParameter("calle");
-        int numExt = Integer.parseInt(request.getParameter("numExt"));
-        String colonia = request.getParameter("colonia");
-        int cp = Integer.parseInt(request.getParameter("cp"));
-
-        Direccion direccion = new Direccion(id, calle, numExt, colonia, cp);
-        //con.actualizarDireccion(direccion);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
+       String nombre = request.getParameter("nombre");
+        int año = Integer.parseInt(request.getParameter("ano"));
+        String categoria = request.getParameter("categoria");
+        String director = request.getParameter("director");
+        float recaudacion = Float.parseFloat(request.getParameter("recaudacion"));
+        con.actualizarPelicula(new Pelicula(id, nombre, año, categoria, director, recaudacion));
+        response.sendRedirect("Peliculas");
     }
 
     /**

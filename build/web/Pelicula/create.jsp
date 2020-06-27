@@ -43,7 +43,7 @@
                             <label>Nombre</label> <input type="text" value="<c:out value='${pelicula.nombre}' />" class="form-control" name="nombre" required="required">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Año</label> <input type="number" value="<c:out value='${pelicula.ano}' />" class="form-control" name="ano" required="required">
+                            <label>Año</label> <input type="number" value="<c:out value='${pelicula.año}' />" class="form-control" name="ano" required="required">
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Categoria</label> <input type="text" value="<c:out value='${pelicula.categoria}' />" class="form-control" name="categoria">
