@@ -30,7 +30,7 @@
                 <p>En esta sección se encuentra un listado de todas las películas registradas por parte de todos los usuarios de esta comunidad, puedes agregar una nueva o puedes vender alguna de estas si cuentas con ella y deseas venderla.</p>
                 <br><br>
                 <div class="container text-left">
-                    <form action="Controller" method="post">
+                    <form action="Peliculas" method="post">
                         <input name="link" type="submit" value="Recargar" class="btn btn-success">
                         <input name="link" type="submit" value="Agregar" class="btn btn-success">
                     </form>

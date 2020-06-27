@@ -27,7 +27,8 @@
             <div class="container">
                 <h3 class="text-center">Venta de Multimedia</h3>
 
-                <p style="text-align: center">Bienvenido! <c:out value='${user}'/>  Has iniciado sesion correctamente</p>
+                <br>
+                <p style="text-align: center">Bienvenido! <b><c:out value='${user}'/></b> Has iniciado sesion correctamente</p>
 
                 <hr>
                 <div class="container text-left">
