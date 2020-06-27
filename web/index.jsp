@@ -37,13 +37,13 @@ fueron incorrectos. Para cada caso se imprime un bloque de html distinto.
             
             
             <c:if test="${logged != null}">
-                <h3>Bienvenido! <c:out value='${logged}'/>  Has iniciado sesion correctamente</h3>
+                <h3>Bienvenido! <c:out value='${logged}'/>  Has iniciado sesión correctamente</h3>
             </c:if>
 
             <c:if test="${logged == null}">
                 <div class="card">
                     <div class="card-body">
-                        <h2 style="text-align: center">Iniciar Sesion</h2>
+                        <h2 style="text-align: center">Iniciar Sesión</h2>
                         <p>Introduce tu usuario y contraseña</p>
                         <br>
                         <form action="Login" method="post">

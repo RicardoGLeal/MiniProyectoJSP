@@ -12,13 +12,16 @@
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
                 <div>
-                    <a href="<%=request.getContextPath()%>/Controller" class="navbar-brand"> Libros</a>
+                    <a href="<%=request.getContextPath()%>/Main" class="navbar-brand"> Libros</a>
                 </div>
-
                 <ul class="navbar-nav">
-                    <li><a href="<%=request.getContextPath()%>/Controller"
-                           class="nav-link"><c:out value='${user}'/></a></li>
+                    <li>
+                        <a href="<%=request.getContextPath()%>/"
+                           class="nav-link">Salir
+                        </a>
+                    </li>
                 </ul>
+                           
             </nav>
         </header>
         <br>
