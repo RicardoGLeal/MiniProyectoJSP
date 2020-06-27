@@ -1,5 +1,6 @@
 package servletPackage;
 
+import Models.Pelicula;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -83,7 +84,7 @@ public class Peliculas extends HttpServlet {
             String link = request.getParameter("link");
 
             if (link == null) {
-                ShowDirections(request, response);
+                ShowPeliculas(request, response);
             } else {
                 String[] splitedLink = link.split("/");
                 switch (splitedLink[0]) {
@@ -91,7 +92,7 @@ public class Peliculas extends HttpServlet {
                         showCreate(request, response);
                         break;
                     case "Insert":
-                        insertDirection(request, response);
+                        insertPelicula(request, response);
                         break;
                     case "Edit":
                         showEditForm(request, response, Integer.parseInt(splitedLink[1]));
@@ -103,7 +104,7 @@ public class Peliculas extends HttpServlet {
                         DeleteDirection(request, response, Integer.parseInt(splitedLink[1]));
                         break;
                     default:
-                        ShowDirections(request, response);
+                        ShowPeliculas(request, response);
                         break;
                 }
             }
@@ -153,14 +154,15 @@ public class Peliculas extends HttpServlet {
      * @throws SQLException
      * @throws IOException 
      */
-    private void insertDirection(HttpServletRequest request, HttpServletResponse response)
+    private void insertPelicula(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String calle = request.getParameter("calle");
-        int numExt = Integer.parseInt(request.getParameter("numExt"));
-        String colonia = request.getParameter("colonia");
-        int cp = Integer.parseInt(request.getParameter("cp"));
-        con.insertarDireccion(new Direccion(calle, numExt, colonia, cp));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        String nombre = request.getParameter("nombre");
+        int año = Integer.parseInt(request.getParameter("ano"));
+        String categoria = request.getParameter("categoria");
+        String director = request.getParameter("director");
+        float recaudacion = Float.parseFloat(request.getParameter("recaudacion"));
+        con.insertarPelicula(new Pelicula(nombre,año,categoria,director,recaudacion));
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException ex) {
@@ -243,11 +245,11 @@ public class Peliculas extends HttpServlet {
      * @throws IOException error IO.
      * @throws ServletException error en el servlet.
      */
-    private void ShowDirections(HttpServletRequest request, HttpServletResponse response) 
+    private void ShowPeliculas(HttpServletRequest request, HttpServletResponse response) 
         throws SQLException, IOException, ServletException {
-        List<Direccion> direcciones = con.consultarDirecciones();
-        request.setAttribute("listDirections", direcciones);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+        List<Pelicula> peliculas = con.obtenerPeliculas();
+        request.setAttribute("listPeliculas", peliculas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
         dispatcher.forward(request, response);
     }
     

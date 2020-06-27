@@ -27,32 +27,32 @@
                     <form action="Peliculas" method="post">
                         <caption>
                             <h2>
-                                <c:if test="${direction != null}">
+                                <c:if test="${pelicula != null}">
                                     Editar Pelicula
                                 </c:if>
-                                <c:if test="${direction == null}">
+                                <c:if test="${pelicula == null}">
                                     Agregar Pelicula
                                 </c:if>
                             </h2>
                         </caption>
 
-                        <c:if test="${direction != null}">
+                        <c:if test="${pelicula != null}">
                             <input type="hidden" name="id" value="<c:out value='${pelicula.id}' />" />
                         </c:if>
                         <fieldset class="form-group">
                             <label>Nombre</label> <input type="text" value="<c:out value='${pelicula.nombre}' />" class="form-control" name="nombre" required="required">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Año</label> <input type="number" value="<c:out value='${pelicula.año}' />" class="form-control" name="año">
+                            <label>Año</label> <input type="number" value="<c:out value='${pelicula.ano}' />" class="form-control" name="ano" required="required">
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Categoria</label> <input type="text" value="<c:out value='${pelicula.categoria}' />" class="form-control" name="categoria">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Director</label> <input type="number"value="<c:out value='${pelicula.director}' />" class="form-control" name="director">
+                            <label>Director</label> <input type="text" value="<c:out value='${pelicula.director}' />" class="form-control" name="director">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Recaudacion</label> <input type="number"value="<c:out value='${pelicula.recaudacion}' />" class="form-control" name="recaudacion">
+                            <label>Recaudacion</label> <input type="number" value="<c:out value='${pelicula.recaudacion}' />" class="form-control" name="recaudacion">
                         </fieldset>
                         <c:if test="${pelicula != null}">
                             <button name="link" type="submit" class="btn btn-success" value="Update/<c:out value='${pelicula.id}' />">Actualizar</button>
