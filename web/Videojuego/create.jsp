@@ -12,11 +12,11 @@
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
                 <div>
-                    <a href="<%=request.getContextPath()%>/Peliculas" class="navbar-brand"> Peliculas </a>
+                    <a href="<%=request.getContextPath()%>/Controller" class="navbar-brand"> Direcciones </a>
                 </div>
 
                 <ul class="navbar-nav">
-                    <li><a href="<%=request.getContextPath()%>/Peliculas" class="nav-link">Peliculas</a></li>
+                    <li><a href="<%=request.getContextPath()%>/Controller" class="nav-link">Direcciones</a></li>
                 </ul>
             </nav>
         </header>
@@ -24,40 +24,37 @@
         <div class="container col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <form action="Peliculas" method="post">
+                    <form action="Controller" method="post">
                         <caption>
                             <h2>
                                 <c:if test="${direction != null}">
-                                    Editar Pelicula
+                                    Editar Direccion
                                 </c:if>
                                 <c:if test="${direction == null}">
-                                    Agregar Pelicula
+                                    Agregar Direccion
                                 </c:if>
                             </h2>
                         </caption>
 
                         <c:if test="${direction != null}">
-                            <input type="hidden" name="id" value="<c:out value='${pelicula.id}' />" />
+                            <input type="hidden" name="id" value="<c:out value='${direction.id}' />" />
                         </c:if>
                         <fieldset class="form-group">
-                            <label>Nombre</label> <input type="text" value="<c:out value='${pelicula.nombre}' />" class="form-control" name="nombre" required="required">
+                            <label>Calle</label> <input type="text" value="<c:out value='${direction.calle}' />" class="form-control" name="calle" required="required">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Año</label> <input type="number" value="<c:out value='${pelicula.año}' />" class="form-control" name="año">
+                            <label>NumExt</label> <input type="number" value="<c:out value='${direction.numExt}' />" class="form-control" name="numExt">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Categoria</label> <input type="text" value="<c:out value='${pelicula.categoria}' />" class="form-control" name="categoria">
+                            <label>Colonia</label> <input type="text" value="<c:out value='${direction.colonia}' />" class="form-control" name="colonia">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Director</label> <input type="number"value="<c:out value='${pelicula.director}' />" class="form-control" name="director">
+                            <label>CP</label> <input type="number"value="<c:out value='${direction.cp}' />" class="form-control" name="cp">
                         </fieldset>
-                        <fieldset class="form-group">
-                            <label>Recaudacion</label> <input type="number"value="<c:out value='${pelicula.recaudacion}' />" class="form-control" name="recaudacion">
-                        </fieldset>
-                        <c:if test="${pelicula != null}">
-                            <button name="link" type="submit" class="btn btn-success" value="Update/<c:out value='${pelicula.id}' />">Actualizar</button>
+                        <c:if test="${direction != null}">
+                            <button name="link" type="submit" class="btn btn-success" value="Update/<c:out value='${direction.id}' />">Actualizar</button>
                         </c:if>
-                        <c:if test="${pelicula == null}">
+                        <c:if test="${direction == null}">
                             <button name="link" type="submit" class="btn btn-success" value="Insert">Guardar</button>
                         </c:if>
                     </form>
