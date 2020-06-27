@@ -62,9 +62,24 @@ public class Peliculas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
             RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
             dispatcher.forward(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method. 
+     * Esta función se ejecuta cuando
+     * en una vista existe un form que tiene como Action este controlador y
+     * tiene como método post.     
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        try {
             String link = request.getParameter("link");
 
             if (link == null) {
@@ -99,22 +114,6 @@ public class Peliculas extends HttpServlet {
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method. 
-     * Esta función se ejecuta cuando
-     * en una vista existe un form que tiene como Action este controlador y
-     * tiene como método post.     
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        this.doGet(request, response);
-    }
-
-    /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
@@ -137,7 +136,7 @@ public class Peliculas extends HttpServlet {
      */
     private void showCreate(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {//To change body of generated methods, choose Tools | Templates.
-        RequestDispatcher dispatcher = request.getRequestDispatcher("direction-form.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/create.jsp");
         dispatcher.forward(request, response);
     }
 
