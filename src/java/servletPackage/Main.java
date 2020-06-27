@@ -63,8 +63,8 @@ public class Main extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = (HttpSession) request.getSession();
-        String user = (String)session.getAttribute("user");
-                String requestVar = request.getParameter("user");
+        String user = (String) session.getAttribute("user");
+        String requestVar = request.getParameter("user");
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Main/index.jsp");
         dispatcher.forward(request, response);
         System.out.println("");
