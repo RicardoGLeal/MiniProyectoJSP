@@ -3,6 +3,9 @@ package servletPackage;
 
 import Models.Libro;
 import Models.Pelicula;
+import Models.VentaLibro;
+import Models.VentaPelicula;
+import Models.VentaVideojuego;
 import Models.Videojuego;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -94,6 +97,20 @@ public class DBController {
         return true;
     }
     
+    public boolean eliminarPelicula(int p){
+          try{
+            String sql = "DELETE FROM pelicula WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p);
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
     public ArrayList<Pelicula> obtenerPeliculas(){
         ArrayList<Pelicula> peliculas = new ArrayList<Pelicula>();
         ResultSet result;
@@ -121,6 +138,17 @@ public class DBController {
         }
         
         return peliculas;
+    }
+    
+    public Pelicula obtenerPelicula(int id){
+        ArrayList<Pelicula> peliculas = new ArrayList<Pelicula>(obtenerPeliculas());
+        
+        for(int i = 0; i<peliculas.size(); i++){
+            if(peliculas.get(i).getId() == id)
+                return peliculas.get(i);
+        }
+        
+        return null;
     }
     
       
@@ -178,7 +206,21 @@ public class DBController {
         return true;
     }
     
-    public ArrayList<Libro> obtenerLibro(){
+    public boolean eliminarLibro(int p){
+          try{
+            String sql = "DELETE FROM libro WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p);
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public ArrayList<Libro> obtenerLibros(){
         ArrayList<Libro> libros = new ArrayList<Libro>();
         ResultSet result;
        
@@ -205,6 +247,17 @@ public class DBController {
         }
         
         return libros;
+    }
+    
+    public Libro obtenerLibro(int id){
+        ArrayList<Libro> libros = new ArrayList<Libro>(obtenerLibros());
+        
+        for(int i = 0; i<libros.size(); i++){
+            if(libros.get(i).getId() == id)
+                return libros.get(i);
+        }
+        
+        return null;
     }
     
     
@@ -262,7 +315,21 @@ public class DBController {
         return true;
     }
     
-    public ArrayList<Videojuego> obtenerVideojuego(){
+    public boolean eliminarVideojuego(int p){
+          try{
+            String sql = "DELETE FROM videojuego WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p);
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public ArrayList<Videojuego> obtenerVideojuegos(){
         ArrayList<Videojuego> videojuegos = new ArrayList<Videojuego>();
         ResultSet result;
        
@@ -289,6 +356,359 @@ public class DBController {
         }
         
         return videojuegos;
+    }
+    
+    public Videojuego obtenerVideojuego(int id){
+        ArrayList<Videojuego> videojuegos = new ArrayList<Videojuego>(obtenerVideojuegos());
+        
+        for(int i = 0; i<videojuegos.size(); i++){
+            if(videojuegos.get(i).getId() == id)
+                return videojuegos.get(i);
+        }
+        
+        return null;
+    }
+    
+    
+    public boolean insertarVentaLibro(VentaLibro p){
+        
+        try{
+            String sql = "INSERT INTO venta_libro(libroid,userid,precio) VALUES (?,?,?)" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p.getLibroId());
+            stmt.setInt(2, p.getIdUser());
+            stmt.setInt(3, p.getPrecio());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean actualizarVentaLibro(VentaLibro p){
+        
+        try{
+            String sql = "UPDATE venta_libro SET libroid=?,userid=?,precio=? WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p.getLibroId());
+            stmt.setInt(2, p.getIdUser());
+            stmt.setInt(3, p.getPrecio());
+            
+            stmt.setInt(4, p.getId());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+      
+    public boolean eliminarVentaLibro(VentaLibro p){
+          try{
+            String sql = "DELETE FROM venta_libro WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p.getId());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean eliminarVentaLibro(int p){
+          try{
+            String sql = "DELETE FROM venta_libro WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p);
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public ArrayList<VentaLibro> obtenerVentaLibros(){
+        ArrayList<VentaLibro> ventaLibros = new ArrayList<VentaLibro>();
+        ResultSet result;
+       
+        try{
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM venta_libro");   
+            result = stmt.executeQuery();
+            
+            while(result.next()){
+                VentaLibro p = new VentaLibro(
+                        result.getInt("id"),
+                        result.getInt("precio"),
+                        result.getInt("userid"),
+                        result.getInt("libroid")
+                );
+                
+                ventaLibros.add(p);
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error en la consulta");
+            return null;
+        }
+        
+        return ventaLibros;
+    }
+    
+    public VentaLibro obtenerVentaLibro(int id){
+        ArrayList<VentaLibro> ventas = new ArrayList<VentaLibro>(obtenerVentaLibros());
+        
+        for(int i = 0; i<ventas.size(); i++){
+            if(ventas.get(i).getId() == id)
+                return ventas.get(i);
+        }
+        
+        return null;
+    }
+    
+    public VentaLibro obtenerVentaLibroUser(int id){
+        ArrayList<VentaLibro> ventas = new ArrayList<VentaLibro>(obtenerVentaLibros());
+        
+        for(int i = 0; i<ventas.size(); i++){
+            if(ventas.get(i).getIdUser() == id)
+                return ventas.get(i);
+        }
+        
+        return null;
+    }
+    
+    
+    public boolean insertarVentaPelicula(VentaPelicula p){
+        
+        try{
+            String sql = "INSERT INTO venta_pelicula(peliculaid,userid,precio) VALUES (?,?,?)" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p.getPeliculaId());
+            stmt.setInt(2, p.getIdUser());
+            stmt.setInt(3, p.getPrecio());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean actualizarVentaPelicula(VentaPelicula p){
+        
+        try{
+            String sql = "UPDATE venta_pelicula SET peliculaid=?,userid=?,precio=? WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p.getPeliculaId());
+            stmt.setInt(2, p.getIdUser());
+            stmt.setInt(3, p.getPrecio());
+            
+            stmt.setInt(4, p.getId());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+      
+    public boolean eliminarVentaPelicula(VentaPelicula p){
+          try{
+            String sql = "DELETE FROM venta_pelicula WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p.getId());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean eliminarVentaPelicula(int p){
+          try{
+            String sql = "DELETE FROM venta_pelicula WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p);
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public ArrayList<VentaPelicula> obtenerVentaPeliculas(){
+        ArrayList<VentaPelicula> ventaPeliculas = new ArrayList<VentaPelicula>();
+        ResultSet result;
+       
+        try{
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM venta_pelicula");   
+            result = stmt.executeQuery();
+            
+            while(result.next()){
+                VentaPelicula p = new VentaPelicula(
+                        result.getInt("id"),
+                        result.getInt("precio"),
+                        result.getInt("userid"),
+                        result.getInt("peliculaid")
+                );
+                
+                ventaPeliculas.add(p);
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error en la consulta");
+            return null;
+        }
+        
+        return ventaPeliculas;
+    }
+    
+    public VentaPelicula obtenerVentaPelicula(int id){
+        ArrayList<VentaPelicula> ventas = new ArrayList<VentaPelicula>(obtenerVentaPeliculas());
+        
+        for(int i = 0; i<ventas.size(); i++){
+            if(ventas.get(i).getId() == id)
+                return ventas.get(i);
+        }
+        
+        return null;
+    }
+    
+    public VentaPelicula obtenerVentaPeliculaUser(int id){
+        ArrayList<VentaPelicula> ventas = new ArrayList<VentaPelicula>(obtenerVentaPeliculas());
+        
+        for(int i = 0; i<ventas.size(); i++){
+            if(ventas.get(i).getIdUser() == id)
+                return ventas.get(i);
+        }
+        
+        return null;
+    }
+    
+    
+    public boolean insertarVentaVideoJuego(VentaVideojuego p){
+        
+        try{
+            String sql = "INSERT INTO venta_videojuego(videojuegoid,userid,precio) VALUES (?,?,?)" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p.getVideojuegoId());
+            stmt.setInt(2, p.getIdUser());
+            stmt.setInt(3, p.getPrecio());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean actualizarVentaVideoJuego(VentaVideojuego p){
+        
+        try{
+            String sql = "UPDATE venta_videojuego SET videojuegoid=?,userid=?,precio=? WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p.getVideojuegoId());
+            stmt.setInt(2, p.getIdUser());
+            stmt.setInt(3, p.getPrecio());
+            
+            stmt.setInt(4, p.getId());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+      
+    public boolean eliminarVentaVideoJuego(VentaVideojuego p){
+          try{
+            String sql = "DELETE FROM venta_videojuego WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p.getId());
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public boolean eliminarVentaVideoJuego(int p){
+          try{
+            String sql = "DELETE FROM venta_videojuego WHERE id=?" ; 
+            PreparedStatement stmt = con.prepareStatement(sql);
+
+            stmt.setInt(1, p);
+            
+            stmt.executeUpdate();
+        }catch(SQLException e){
+            return false;
+        }
+        return true;
+    }
+    
+    public ArrayList<VentaVideojuego> obtenerVentaVideoJuegos(){
+        ArrayList<VentaVideojuego> ventaVideojuegos = new ArrayList<VentaVideojuego>();
+        ResultSet result;
+       
+        try{
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM venta_videojuego");   
+            result = stmt.executeQuery();
+            
+            while(result.next()){
+                VentaVideojuego p = new VentaVideojuego(
+                        result.getInt("id"),
+                        result.getInt("precio"),
+                        result.getInt("userid"),
+                        result.getInt("videojuegoid")
+                );
+                
+                ventaVideojuegos.add(p);
+            }
+            
+        }catch(SQLException e){
+            System.out.println("Error en la consulta");
+            return null;
+        }
+        
+        return ventaVideojuegos;
+    }
+    
+    public VentaVideojuego obtenerVentaVideoJuego(int id){
+        ArrayList<VentaVideojuego> ventas = new ArrayList<VentaVideojuego>(obtenerVentaVideoJuegos());
+        
+        for(int i = 0; i<ventas.size(); i++){
+            if(ventas.get(i).getId() == id)
+                return ventas.get(i);
+        }
+        
+        return null;
+    }
+    
+    public VentaVideojuego obtenerVentaVideoJuegoUser(int id){
+        ArrayList<VentaVideojuego> ventas = new ArrayList<VentaVideojuego>(obtenerVentaVideoJuegos());
+        
+        for(int i = 0; i<ventas.size(); i++){
+            if(ventas.get(i).getIdUser() == id)
+                return ventas.get(i);
+        }
+        
+        return null;
     }
     
     

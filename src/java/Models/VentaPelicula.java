@@ -11,18 +11,18 @@ package Models;
  */
 public class VentaPelicula {
     private int id;
-    private float precio;
+    private int precio;
     private int idUser;
     private int peliculaId;
 
-    public VentaPelicula(int id, float precio, int idUser, int peliculaId) {
+    public VentaPelicula(int id, int precio, int idUser, int peliculaId) {
         this.id = id;
         this.precio = precio;
         this.idUser = idUser;
         this.peliculaId = peliculaId;
     }
     
-      public VentaPelicula(float precio, int idUser, int peliculaId) {
+      public VentaPelicula(int precio, int idUser, int peliculaId) {
         this.id = -1;
         this.precio = precio;
         this.idUser = idUser;
@@ -37,11 +37,11 @@ public class VentaPelicula {
         this.id = id;
     }
 
-    public float getPrecio() {
+    public int getPrecio() {
         return precio;
     }
 
-    public void setPrecio(float precio) {
+    public void setPrecio(int precio) {
         this.precio = precio;
     }
 
