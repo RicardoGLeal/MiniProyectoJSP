@@ -12,12 +12,14 @@
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
                 <div>
-                    <a href="<%=request.getContextPath()%>/Controller" class="navbar-brand"> Bienvenido</a>
+                    <a href="<%=request.getContextPath()%>/Main" class="navbar-brand"> Bienvenido <c:out value='${user}'/></a>
                 </div>
-
                 <ul class="navbar-nav">
-                    <li><a href="<%=request.getContextPath()%>/Controller"
-                           class="nav-link"><c:out value='${user}'/></a></li>
+                    <li>
+                        <a href="<%=request.getContextPath()%>/"
+                           class="nav-link">Salir
+                        </a>
+                    </li>
                 </ul>
             </nav>
         </header>
@@ -28,7 +30,7 @@
                 <h3 class="text-center">Venta de Multimedia</h3>
 
                 <br>
-                <p style="text-align: center">Bienvenido! <b><c:out value='${user}'/></b> Has iniciado sesion correctamente</p>
+                <p style="text-align: center">Bienvenido! <b><c:out value='${user}'/></b> Has iniciado sesión correctamente</p>
 
                 <hr>
                 <div class="container text-left">
