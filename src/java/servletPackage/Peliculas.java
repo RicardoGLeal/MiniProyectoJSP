@@ -221,7 +221,7 @@ public class Peliculas extends HttpServlet {
      */
     private void showEditForm(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-        Pelicula pelicula = con.obtenerPeliculas(id);
+        Pelicula pelicula = con.obtenerPelicula(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/create.jsp");
         request.setAttribute("pelicula", pelicula);
         dispatcher.forward(request, response);
