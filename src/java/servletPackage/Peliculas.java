@@ -160,7 +160,7 @@ public class Peliculas extends HttpServlet {
         int numExt = Integer.parseInt(request.getParameter("numExt"));
         String colonia = request.getParameter("colonia");
         int cp = Integer.parseInt(request.getParameter("cp"));
-        con.insertarDireccion(new Direccion(calle, numExt, colonia, cp));
+        //con.insertarDireccion(new Direccion(calle, numExt, colonia, cp));
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         try {
             dispatcher.forward(request, response);
@@ -185,7 +185,7 @@ public class Peliculas extends HttpServlet {
      */
     private void DeleteDirection(HttpServletRequest request, HttpServletResponse response, int id) 
             throws IOException, SQLException{
-        con.eliminarDireccion(id);
+        //con.eliminarDireccion(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         try {
             dispatcher.forward(request, response);
@@ -214,9 +214,9 @@ public class Peliculas extends HttpServlet {
      */
     private void showEditForm(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-        Direccion direccion = con.consultarDirecciones("id", id).get(0);
+        //Direccion direccion = con.consultarDirecciones("id", id).get(0);
         RequestDispatcher dispatcher = request.getRequestDispatcher("direction-form.jsp");
-        request.setAttribute("direction", direccion);
+        //request.setAttribute("direction", direccion);
         dispatcher.forward(request, response);
     }
 
@@ -228,7 +228,7 @@ public class Peliculas extends HttpServlet {
         int cp = Integer.parseInt(request.getParameter("cp"));
 
         Direccion direccion = new Direccion(id, calle, numExt, colonia, cp);
-        con.actualizarDireccion(direccion);
+        //con.actualizarDireccion(direccion);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
@@ -246,8 +246,8 @@ public class Peliculas extends HttpServlet {
      */
     private void ShowDirections(HttpServletRequest request, HttpServletResponse response) 
         throws SQLException, IOException, ServletException {
-        List<Direccion> direcciones = con.consultarDirecciones();
-        request.setAttribute("listDirections", direcciones);
+        //List<Direccion> direcciones = con.consultarDirecciones();
+        //request.setAttribute("listDirections", direcciones);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
