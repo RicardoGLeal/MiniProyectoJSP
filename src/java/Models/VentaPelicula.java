@@ -63,5 +63,7 @@ public class VentaPelicula {
         this.peliculaId = peliculaId;
     }
     
-    
+    public Pelicula getPelicula(){
+        return pelicula;
+    }
 }

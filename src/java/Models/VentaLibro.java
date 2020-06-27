@@ -63,5 +63,8 @@ public class VentaLibro {
         this.libroId = libroId;
     }
     
+    public Libro getLibro(){
+        return libro;
+    }
     
 }

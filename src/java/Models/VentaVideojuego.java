@@ -63,6 +63,8 @@ public class VentaVideojuego {
         this.videojuegoId = videojuegoId;
     }
     
-    
+    public Videojuego getVideoJuego(){
+        return videojuego;
+    }
 
 }

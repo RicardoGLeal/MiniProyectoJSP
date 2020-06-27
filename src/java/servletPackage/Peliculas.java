@@ -269,7 +269,7 @@ public class Peliculas extends HttpServlet {
         int precio = Integer.parseInt(request.getParameter("precio"));
         HttpSession session = (HttpSession) request.getSession();
         int userid = Integer.parseInt(session.getAttribute("id").toString());
-        con.insertarVentaPelicula(new VentaPelicula(precio, userid, peliculaID) );
+        con.insertarVentaPelicula(new VentaPelicula(precio, userid, peliculaID));
         try {
             response.sendRedirect("Peliculas");
         } catch (IOException ex) {
@@ -278,7 +278,11 @@ public class Peliculas extends HttpServlet {
     }
     private void misPelisVendidas(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
-        List<VentaPelicula> peliculas = con.obtenerVentaPeliculaUser(0);
+        
+        //HttpSession session = (HttpSession) request.getSession();
+        //int userid = Integer.parseInt(session.getAttribute("id").toString());
+        List<VentaPelicula> peliculas = con.obtenerVentaPeliculaUser(1);
+        
         request.setAttribute("listPeliculas", peliculas);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/mispeliculas.jsp");
         dispatcher.forward(request, response);

@@ -54,7 +54,7 @@
                         <fieldset class="form-group">
                             <label>Precio: </label> <input type="number" class="form-control" name="precio" required="required">
                         </fieldset>
-                        <button name="link" type="submit" class="btn btn-success" value="Sold">Vender</button>
+                        <button name="link" type="submit" class="btn btn-success" value="Sold/<c:out value='${pelicula.id}' />">Vender</button>
                     </form>
                 </div>
             </div>

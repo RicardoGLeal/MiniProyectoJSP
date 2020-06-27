@@ -28,8 +28,7 @@
                 <h3 class="text-center">Lista de Peliculas</h3>
                 <hr>
                 <p>En esta sección se encuentra un listado de todas las películas que estas vendiendo, recuerda que la pelicula tiene que estar registrada.</p>
-                <br><br>
-
+            
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -42,7 +41,7 @@
                        <c:forEach var="pelicula" items="${listPeliculas}">          
                             <tr>
                                 <td><c:out value="${pelicula.id}" /></td>
-                                <td><c:out value="${pelicula.pelicula.nombre}" /></td>
+                                <td><c:out value="${pelicula.getPelicula().nombre}" /></td>
                                 <td><c:out value="${pelicula.precio}" /></td>
                             </tr>
                         </c:forEach>>
