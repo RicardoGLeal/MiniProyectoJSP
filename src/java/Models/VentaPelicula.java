@@ -14,15 +14,17 @@ public class VentaPelicula {
     private int precio;
     private int idUser;
     private int peliculaId;
+    public Pelicula pelicula;
 
-    public VentaPelicula(int id, int precio, int idUser, int peliculaId) {
+    public VentaPelicula(int id, int precio, int idUser, int peliculaId, Pelicula pelicula) {
         this.id = id;
         this.precio = precio;
         this.idUser = idUser;
         this.peliculaId = peliculaId;
+        this.pelicula = pelicula;
     }
     
-      public VentaPelicula(int precio, int idUser, int peliculaId) {
+    public VentaPelicula(int precio, int idUser, int peliculaId) {
         this.id = -1;
         this.precio = precio;
         this.idUser = idUser;

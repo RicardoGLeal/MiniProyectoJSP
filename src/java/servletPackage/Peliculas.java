@@ -1,6 +1,7 @@
 package servletPackage;
 
 import Models.Pelicula;
+import Models.VentaPelicula;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -106,6 +107,8 @@ public class Peliculas extends HttpServlet {
                     case "Delete":
                         Delete(request, response, Integer.parseInt(splitedLink[1]));
                         break;
+                    case "Mis peliculas vendidas":
+                        misPelisVendidas(request, response);
                     default:
                         ShowPeliculas(request, response);
                         break;
@@ -144,6 +147,9 @@ public class Peliculas extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    
+ 
+    
     /**
      * Función insertDirection.
      * Se manda llamar cuando se da click en el botón de Guardar, el cual desde
@@ -253,4 +259,11 @@ public class Peliculas extends HttpServlet {
         dispatcher.forward(request, response);
     }
     
+    private void misPelisVendidas(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException{
+        List<VentaPelicula> peliculas = con.obtenerVentaPeliculaUser(0);
+        request.setAttribute("listPeliculas", peliculas);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/mispeliculas.jsp");
+        dispatcher.forward(request, response);
+    }
 }
