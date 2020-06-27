@@ -63,8 +63,12 @@ public class Peliculas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
-            dispatcher.forward(request, response);
+           
+        try {
+            ShowPeliculas(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -162,12 +166,14 @@ public class Peliculas extends HttpServlet {
         String director = request.getParameter("director");
         float recaudacion = Float.parseFloat(request.getParameter("recaudacion"));
         con.insertarPelicula(new Pelicula(nombre,año,categoria,director,recaudacion));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
-        try {
+       // RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
+                response.sendRedirect("Main");
+
+        /*try {
             dispatcher.forward(request, response);
         } catch (ServletException ex) {
             Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
 
     }
 
@@ -186,7 +192,7 @@ public class Peliculas extends HttpServlet {
      */
     private void DeleteDirection(HttpServletRequest request, HttpServletResponse response, int id) 
             throws IOException, SQLException{
-        con.eliminarDireccion(id);
+        //con.eliminarDireccion(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         try {
             dispatcher.forward(request, response);
@@ -215,9 +221,9 @@ public class Peliculas extends HttpServlet {
      */
     private void showEditForm(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-        Direccion direccion = con.consultarDirecciones("id", id).get(0);
+        //Direccion direccion = con.consultarDirecciones("id", id).get(0);
         RequestDispatcher dispatcher = request.getRequestDispatcher("direction-form.jsp");
-        request.setAttribute("direction", direccion);
+        //request.setAttribute("direction", direccion);
         dispatcher.forward(request, response);
     }
 
@@ -229,7 +235,7 @@ public class Peliculas extends HttpServlet {
         int cp = Integer.parseInt(request.getParameter("cp"));
 
         Direccion direccion = new Direccion(id, calle, numExt, colonia, cp);
-        con.actualizarDireccion(direccion);
+        //con.actualizarDireccion(direccion);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }

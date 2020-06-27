@@ -49,7 +49,7 @@
                     </thead>
                     <tbody>
                     <form action="Controller" method="post">
-                        <c:forEach var="pelicula" items="${listPeliculas}">          
+                        <c:forEach var="direction" items="${listPeliculas}">          
                             <tr>
                                 <td><c:out value="${pelicula.id}" /></td>
                                 <td><c:out value="${pelicula.nombre}" /></td>
@@ -62,10 +62,10 @@
                                         <td><button type="submit" name="link" id class="btn btn-success" value="Delete/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Eliminar</button>
                                             </tr>
                                         </c:forEach>
-                                        </form>
-                                        </tbody>
-                                        </table>
-                                        </div>
-                                        </div>
-                                        </body>
-                                        </html>
+                    </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

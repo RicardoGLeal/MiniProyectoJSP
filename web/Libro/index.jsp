@@ -12,7 +12,7 @@
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
                 <div>
-                    <a href="<%=request.getContextPath()%>/Controller" class="navbar-brand"> Peliculas</a>
+                    <a href="<%=request.getContextPath()%>/Controller" class="navbar-brand"> Libros</a>
                 </div>
 
                 <ul class="navbar-nav">
@@ -25,12 +25,12 @@
 
         <div class="row">
             <div class="container">
-                <h3 class="text-center">Lista de Peliculas</h3>
+                <h3 class="text-center">Lista de Libros</h3>
                 <hr>
-                <p>En esta sección se encuentra un listado de todas las películas registradas por parte de todos los usuarios de esta comunidad, puedes agregar una nueva o puedes vender alguna de estas si cuentas con ella y deseas venderla.</p>
+                <p>En esta sección se encuentra un listado de todos los libros registrados por parte de todos los usuarios de esta comunidad, puedes agregar uno nuevo o puedes vender alguno de estos si cuentas con el y deseas venderlo.</p>
                 <br><br>
                 <div class="container text-left">
-                    <form action="Peliculas" method="post">
+                    <form action="Videojuegos" method="post">
                         <input name="link" type="submit" value="Recargar" class="btn btn-success">
                         <input name="link" type="submit" value="Agregar" class="btn btn-success">
                     </form>
@@ -40,26 +40,26 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Nombre</th>
+                            <th>Titulo</th>
                             <th>Año</th>
-                            <th>Categoria</th>
-                            <th>Director</th>
-                            <th>Recaudacion</th>
+                            <th>Autor</th>
+                            <th>Sinopsis</th>
+                            <th>Editorial</th>
                         </tr>
                     </thead>
                     <tbody>
                     <form action="Controller" method="post">
-                        <c:forEach var="pelicula" items="${listPeliculas}">          
+                        <c:forEach var="direction" items="${listLibros}">          
                             <tr>
-                                <td><c:out value="${pelicula.id}" /></td>
-                                <td><c:out value="${pelicula.nombre}" /></td>
-                                <td><c:out value="${pelicula.año}" /></td>
-                                <td><c:out value="${pelicula.categoria}" /></td>
-                                <td><c:out value="${pelicula.director}" /></td>
-                                <td><c:out value="${pelicula.recaudacion}" /></td>
-                                <td><button type="submit" name="link" id class="btn btn-success" value="Edit/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Editar</button>
+                                <td><c:out value="${libro.id}" /></td>
+                                <td><c:out value="${libro.titulo}" /></td>
+                                <td><c:out value="${libro.año}" /></td>
+                                <td><c:out value="${libro.autor}" /></td>
+                                <td><c:out value="${libro.sinopsis}" /></td>
+                                <td><c:out value="${libro.editorial}" /></td>
+                                <td><button type="submit" name="link" id class="btn btn-success" value="Edit/<c:out value='${libro.id}' />" id="<c:out value='${libro.id}' />">Editar</button>
                                     &nbsp;&nbsp;&nbsp;&nbsp; <a
-                                        <td><button type="submit" name="link" id class="btn btn-success" value="Delete/<c:out value='${pelicula.id}' />" id="<c:out value='${pelicula.id}' />">Eliminar</button>
+                                        <td><button type="submit" name="link" id class="btn btn-success" value="Delete/<c:out value='${libro.id}' />" id="<c:out value='${libro.id}' />">Eliminar</button>
                                             </tr>
                                         </c:forEach>
                                         </form>

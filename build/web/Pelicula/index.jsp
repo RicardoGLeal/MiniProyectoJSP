@@ -49,7 +49,7 @@
                     </thead>
                     <tbody>
                     <form action="Controller" method="post">
-                        <c:forEach var="direction" items="${listPeliculas}">          
+                        <c:forEach var="pelicula" items="${listPeliculas}">          
                             <tr>
                                 <td><c:out value="${pelicula.id}" /></td>
                                 <td><c:out value="${pelicula.nombre}" /></td>
