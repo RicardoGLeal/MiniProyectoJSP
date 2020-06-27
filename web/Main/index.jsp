@@ -16,7 +16,7 @@
                 </div>
                 <ul class="navbar-nav">
                     <li>
-                        <a href="<%=request.getContextPath()%>/"
+                        <a href="<%=request.getContextPath()%>/Logout"
                            class="nav-link">Salir
                         </a>
                     </li>
