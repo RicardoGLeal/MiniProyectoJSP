@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
     <head>
-        <title>CRUD Direcciones</title>
+        <title>CRUD Libros</title>
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
@@ -16,7 +16,7 @@
                 </div>
                 <ul class="navbar-nav">
                     <li>
-                        <a href="<%=request.getContextPath()%>/"
+                        <a href="<%=request.getContextPath()%>/Logout"
                            class="nav-link">Salir
                         </a>
                     </li>
