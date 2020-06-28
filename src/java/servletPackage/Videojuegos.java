@@ -66,6 +66,7 @@ public class Videojuegos extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
+            
             ShowVideojuegos(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(Videojuegos.class.getName()).log(Level.SEVERE, null, ex);
@@ -267,23 +268,21 @@ public class Videojuegos extends HttpServlet {
 
     }
 
-    private void Sold(HttpServletRequest request, HttpServletResponse response, int videojuegoID) {
+    private void Sold(HttpServletRequest request, HttpServletResponse response, int videojuegoID) throws IOException {
         int precio = Integer.parseInt(request.getParameter("precio"));
         HttpSession session = (HttpSession) request.getSession();
         int userid = Integer.parseInt(session.getAttribute("id").toString());
         con.insertarVentaVideoJuego(new VentaVideojuego(precio, userid, videojuegoID));
-        try {
             response.sendRedirect("Videojuegos");
-        } catch (IOException ex) {
-            Logger.getLogger(Videojuegos.class.getName()).log(Level.SEVERE, null, ex);
-        }
+           
     }
     private void misJueguitosVendidos(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
         
-        //HttpSession seVentaPeliculassion = (HttpSession) request.getSession();
-        //int userid = Integer.parseInt(session.getAttribute("id").toString());
-        List<VentaVideojuego> videojuegos = con.obtenerVentaVideoJuegoUser(1);
+        HttpSession seVentaPeliculassion = (HttpSession) request.getSession();
+        int userid = Integer.parseInt(seVentaPeliculassion.getAttribute("id").toString());
+        
+        List<VentaVideojuego> videojuegos = con.obtenerVentaVideoJuegoUser(userid);
         
         request.setAttribute("listVideojuegos", videojuegos);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Videojuego/misvideojuegos.jsp");

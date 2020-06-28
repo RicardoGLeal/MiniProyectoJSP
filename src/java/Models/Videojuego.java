@@ -68,7 +68,6 @@ public class Videojuego {
   
     public Videojuego(String titulo, int año, String desarrollador, String distribuidora, String clasificacion)
     {
-        this.id = id;
         this.titulo = titulo;
         this.año = año;
         this.desarrollador = desarrollador;
@@ -78,6 +77,7 @@ public class Videojuego {
     
     public Videojuego(int id, String titulo, int año, String desarrollador, String distribuidora, String clasificacion)
     {
+        this.id = id;
         this.titulo = titulo;
         this.año = año;
         this.desarrollador = desarrollador;

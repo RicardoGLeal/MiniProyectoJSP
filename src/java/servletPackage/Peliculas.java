@@ -277,9 +277,9 @@ public class Peliculas extends HttpServlet {
     private void misPelisVendidas(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
         
-        //HttpSession session = (HttpSession) request.getSession();
-        //int userid = Integer.parseInt(session.getAttribute("id").toString());
-        List<VentaPelicula> peliculas = con.obtenerVentaPeliculaUser(1);
+        HttpSession session = (HttpSession) request.getSession();
+        int userid = Integer.parseInt(session.getAttribute("id").toString());
+        List<VentaPelicula> peliculas = con.obtenerVentaPeliculaUser(userid);
         
         request.setAttribute("listPeliculas", peliculas);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/mispeliculas.jsp");
