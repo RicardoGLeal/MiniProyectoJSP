@@ -95,10 +95,10 @@ public class Main extends HttpServlet {
                         response.sendRedirect("Peliculas");
                         break;
                     case "Libros":
-                        insertDirection(request, response);
+                        response.sendRedirect("Libros");
                         break;
                     case "Videojuegos":
-                        showEditForm(request, response, Integer.parseInt(splitedLink[1]));
+                        response.sendRedirect("Videojuegos");
                         break;
                     case "Update":
                         updateDireccion(request, response, Integer.parseInt(splitedLink[1]));

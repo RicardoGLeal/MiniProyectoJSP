@@ -2,6 +2,8 @@ package servletPackage;
 
 import Models.Pelicula;
 import Models.VentaPelicula;
+import Models.VentaVideojuego;
+import Models.Videojuego;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -29,7 +31,7 @@ import javax.servlet.http.HttpSession;
  * La manera en la que se realiza la comunicación de información es por medio de 
  * parámetros utilizados en inputs y botones en forms.
  */
-@WebServlet(name = "Peliculas", urlPatterns = {"/Peliculas"})
+@WebServlet(name = "Videojuegos", urlPatterns = {"/Videojuegos"})
 public class Videojuegos extends HttpServlet {
 
     DBController con;
@@ -149,7 +151,7 @@ public class Videojuegos extends HttpServlet {
      */
     private void showCreate(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {//To change body of generated methods, choose Tools | Templates.
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Videojuego/create.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -171,13 +173,13 @@ public class Videojuegos extends HttpServlet {
      */
     private void insertPelicula(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String nombre = request.getParameter("nombre");
-        int año = Integer.parseInt(request.getParameter("ano"));
-        String categoria = request.getParameter("categoria");
-        String director = request.getParameter("director");
-        float recaudacion = Float.parseFloat(request.getParameter("recaudacion"));
-        con.insertarPelicula(new Pelicula(nombre,año,categoria,director,recaudacion));
-        response.sendRedirect("Peliculas");
+        String titulo = request.getParameter("titulo");
+        int año = Integer.parseInt(request.getParameter("año"));
+        String desarrollador = request.getParameter("desarrollador");
+        String distribuidora = request.getParameter("distribuidora");
+        String clasificacion = request.getParameter("clasificacion");
+        con.insertarVideojuego(new Videojuego(titulo,año,desarrollador,distribuidora,clasificacion));
+        response.sendRedirect("Videojuegos");
     }
 
     /**
@@ -195,8 +197,8 @@ public class Videojuegos extends HttpServlet {
      */
     private void Delete(HttpServletRequest request, HttpServletResponse response, int id) 
             throws IOException, SQLException{
-        con.eliminarPelicula(id);
-        response.sendRedirect("Peliculas");
+        con.eliminarVideojuego(id);
+        response.sendRedirect("Videojuegos");
 
     }
 
@@ -220,21 +222,21 @@ public class Videojuegos extends HttpServlet {
      */
     private void showEditForm(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-        Pelicula pelicula = con.obtenerPelicula(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/create.jsp");
-        request.setAttribute("pelicula", pelicula);
+        Videojuego videojuego = con.obtenerVideojuego(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Videojuego/create.jsp");
+        request.setAttribute("videojuego", videojuego);
         dispatcher.forward(request, response);
         
     }
 
     private void updateDireccion(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-       String nombre = request.getParameter("nombre");
+       String titulo = request.getParameter("titulo");
         int año = Integer.parseInt(request.getParameter("ano"));
-        String categoria = request.getParameter("categoria");
-        String director = request.getParameter("director");
-        float recaudacion = Float.parseFloat(request.getParameter("recaudacion"));
-        con.actualizarPelicula(new Pelicula(id, nombre, año, categoria, director, recaudacion));
+        String desarrollador = request.getParameter("desarrollador");
+        String distribuidora = request.getParameter("distribuidora");
+        String clasificacion = request.getParameter("clasificacion");
+        con.actualizarVideojuego(new Videojuego(id, titulo, año, desarrollador, distribuidora, clasificacion));
         response.sendRedirect("Peliculas");
     }
 
@@ -251,27 +253,27 @@ public class Videojuegos extends HttpServlet {
      */
     private void ShowPeliculas(HttpServletRequest request, HttpServletResponse response) 
         throws SQLException, IOException, ServletException {
-        List<Pelicula> peliculas = con.obtenerPeliculas();
-        request.setAttribute("listPeliculas", peliculas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
+        List<Videojuego> videojuegos = con.obtenerVideojuegos();
+        request.setAttribute("listVideojuegos", videojuegos);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Videojuego/index.jsp");
         dispatcher.forward(request, response);
     }
 
     private void Sell(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException {
-        Pelicula pelicula = con.obtenerPelicula(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/sell.jsp");
-        request.setAttribute("pelicula", pelicula);
+        Videojuego videojuego = con.obtenerVideojuego(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Videojuego/sell.jsp");
+        request.setAttribute("videojuego", videojuego);
         dispatcher.forward(request, response);
 
     }
 
-    private void Sold(HttpServletRequest request, HttpServletResponse response, int peliculaID) {
+    private void Sold(HttpServletRequest request, HttpServletResponse response, int videojuegoID) {
         int precio = Integer.parseInt(request.getParameter("precio"));
         HttpSession session = (HttpSession) request.getSession();
         int userid = Integer.parseInt(session.getAttribute("id").toString());
-        con.insertarVentaPelicula(new VentaPelicula(precio, userid, peliculaID));
+        con.insertarVentaVideoJuego(new VentaVideojuego(precio, userid, videojuegoID));
         try {
-            response.sendRedirect("Peliculas");
+            response.sendRedirect("Videojuegos");
         } catch (IOException ex) {
             Logger.getLogger(Videojuegos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -279,12 +281,12 @@ public class Videojuegos extends HttpServlet {
     private void misPelisVendidas(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
         
-        //HttpSession session = (HttpSession) request.getSession();
+        //HttpSession seVentaPeliculassion = (HttpSession) request.getSession();
         //int userid = Integer.parseInt(session.getAttribute("id").toString());
-        List<VentaPelicula> peliculas = con.obtenerVentaPeliculaUser(1);
+        List<VentaVideojuego> videojuegos = con.obtenerVentaVideoJuegoUser(1);
         
-        request.setAttribute("listPeliculas", peliculas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/mispeliculas.jsp");
+        request.setAttribute("listVideojuegos", videojuegos);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Videojuego/misvideojuegos.jsp");
         dispatcher.forward(request, response);
     }
 }
