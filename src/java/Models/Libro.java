@@ -68,7 +68,7 @@ public class Libro {
     
     public Libro(String titulo, int año, String autor, String sinopsis, String editorial)
     {
-        this.id = id;
+        
         this.titulo = titulo;
         this.año = año;
         this.autor = autor;
@@ -78,6 +78,7 @@ public class Libro {
     
     public Libro(int id, String titulo, int año, String autor, String sinopsis, String editorial)
     {
+        this.id = id;
         this.titulo = titulo;
         this.año = año;
         this.autor = autor;
