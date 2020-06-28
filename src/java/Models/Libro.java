@@ -68,7 +68,6 @@ public class Libro {
     
     public Libro(String titulo, int año, String autor, String sinopsis, String editorial)
     {
-
         this.titulo = titulo;
         this.año = año;
         this.autor = autor;
