@@ -1,7 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @author Ricardo González Leal Clase Login Esta clase se encarga de
+ * funcionar como controlador para el inicio de sesión en la página web. Cuando
+ * el usuario da click en el botón de iniciar sesión la función processRequest
+ * almacena las credenciales ingresadas, hace un select por medio del
+ * controlador de la base de datos, y dependiendo si se encontró el usuario o
+ * no, se asignan atributos que se comunican con el jsp del login.
+ *
  */
 package servletPackage;
 
@@ -16,10 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author ricar
- */
 @WebServlet(urlPatterns = {"/Login"})
 public class Login extends HttpServlet {
 

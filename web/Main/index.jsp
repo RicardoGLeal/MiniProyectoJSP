@@ -13,6 +13,7 @@
                  style="background-color: lightseagreen">
                 <div>
                     <a href="<%=request.getContextPath()%>/Main" class="navbar-brand"> Bienvenido <c:out value='${user}'/></a>
+
                 </div>
                 <ul class="navbar-nav">
                     <li>
@@ -31,9 +32,9 @@
 
                 <br>
                 <p style="text-align: center">Bienvenido! <b><c:out value='${user}'/></b> Has iniciado sesión correctamente</p>
-
+                <br>
                 <hr>
-                <div class="container text-left">
+                <div class="container text-center">
                     <form action="Main" method="post">
                         <input style="width: 50%" name="link" type="submit" value="Peliculas" class="btn btn-success">
                     </form>

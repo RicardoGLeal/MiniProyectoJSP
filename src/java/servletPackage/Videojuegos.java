@@ -195,7 +195,7 @@ public class Videojuegos extends HttpServlet {
 
     /**
      * Función Delete Esta función se manda llamar desde el GET, cuando
-     * se da click en el botón de 'eliminar' en alguna de las direcciones.
+     * se da click en el botón de 'eliminar' en alguna de los videojuegos.
      * Cuando se da click en el botón de 'eliminar' la vista le manda al
      * controlador la palabra "Delete" más el ID de la dirección, posteriormente
      * estos datos son reconocidos en el GET y se llama a esta función, la cual
@@ -283,10 +283,14 @@ public class Videojuegos extends HttpServlet {
     }
 
     /**
-     * 
+     * Función Sell
+     * Esta función se manda llamar cuando el usuario da click en vender en 
+     * algun de los videojuegos, y lo que ésta función hace es cargar el jsp
+     * de sell, obtener los datos del videojuego correspondiente a vender, y 
+     * mandarlos al jsp y mostrarlos por medio de parámetros.
      * @param request
      * @param response
-     * @param id
+     * @param id id del videojuego.
      * @throws IOException
      * @throws ServletException 
      */
@@ -295,9 +299,19 @@ public class Videojuegos extends HttpServlet {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Videojuego/sell.jsp");
         request.setAttribute("videojuego", videojuego);
         dispatcher.forward(request, response);
-
     }
 
+    /**
+     * Función Sold
+     * Se manda llamar cuando el usuario vende un videojuego.
+     * Lo que hace es obtener el precio por medio de parámetro y el id del 
+     * usuario por medio de sessión.getAttribute. Posteriormente realiza un 
+     * insert en la tabla venta_videojuego.
+     * @param request
+     * @param response
+     * @param videojuegoID id del videojuego
+     * @throws IOException 
+     */
     private void Sold(HttpServletRequest request, HttpServletResponse response, int videojuegoID) throws IOException {
         int precio = Integer.parseInt(request.getParameter("precio"));
         HttpSession session = (HttpSession) request.getSession();
@@ -306,6 +320,18 @@ public class Videojuegos extends HttpServlet {
             response.sendRedirect("Videojuegos");
            
     }
+    
+    /**
+     * Función MisJueguitosVendidos
+     * Esta función se manda llamar cuando el usuario da click en el botón de
+     * 'mis videojuegos vendidos', en este se muestra el id de venta, el nombre
+     * del videojuego y el precio del videojuego de cada uno de los videojuegos
+     * vendidos por el usuario logueado.
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     private void misJueguitosVendidos(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
         

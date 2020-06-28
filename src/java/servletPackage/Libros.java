@@ -1,7 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+  @author Ricardo-Angel-Erick Clase Videojuego Esta clase es el servlet
+ * utilizado para el manejo del crud de libros y del sistema de venta de
+ * libros. En el doGet de este servlet, se verifica que haya un usuario
+ * logueado, de lo contrario lo redirecciona a el login para que inicie sesión.
+ * Este servlet conecta con cuatro diferentes JSP utilizados para el sistema,
+ * uno para mostrar un listado de libros, otro para dar de alta uno
+ * nuevo, otro para venderlo y otro para mostrar un listado de los libros
+ * vendidos. La manera en la que se realiza la comunicación de información es
+ * por medio de parámetros utilizados en inputs y botones en forms.
  */
 package servletPackage;
 
@@ -23,10 +29,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author Propietario
- */
 @WebServlet(name = "Libros", urlPatterns = {"/Libros"})
 public class Libros extends HttpServlet {
 
@@ -116,7 +118,7 @@ public class Libros extends HttpServlet {
                         showEditForm(request, response, Integer.parseInt(splitedLink[1]));
                         break;
                     case "Update":
-                        updateDireccion(request, response, Integer.parseInt(splitedLink[1]));
+                        update(request, response, Integer.parseInt(splitedLink[1]));
                         break;
                     case "Delete":
                         Delete(request, response, Integer.parseInt(splitedLink[1]));
@@ -168,15 +170,12 @@ public class Libros extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
-    
- 
-    
     /**
-     * Función insertDirection.
+     * Función insertLibro.
      * Se manda llamar cuando se da click en el botón de Guardar, el cual desde
      * la vista le manda al controlador la palabra "Insert", posteriormente es
      * reconocida en el GET y se llama a esta función.
-     * La vista también almacena los valores de la dirección, los cuales en
+     * La vista también almacena los valores del libro, los cuales en
      * esta función se reciben por medio de erquest.getParameter para finalmente
      * realizar el insert en la base de datos.
      * @param request servlet request
@@ -197,15 +196,15 @@ public class Libros extends HttpServlet {
     }
 
     /**
-     * Función DeleteDirection Esta función se manda llamar desde el GET, cuando
-     * se da click en el botón de 'eliminar' en alguna de las direcciones.
+     * Función Delete Esta función se manda llamar desde el GET, cuando
+     * se da click en el botón de 'eliminar' en alguna de los libros.
      * Cuando se da click en el botón de 'eliminar' la vista le manda al
-     * controlador la palabra "Delete" más el ID de la dirección, posteriormente
+     * controlador la palabra "Delete" más el ID del libro, posteriormente
      * estos datos son reconocidos en el GET y se llama a esta función, la cual
      * manda llamar a la función que ejecuta la query de eliminar una dirección.
      * @param request servlet request
      * @param response servlet response
-     * @param id ID de la dirección a eliminar.
+     * @param id ID del libro a eliminar.
      * @throws IOException
      * @throws SQLException
      */
@@ -218,18 +217,18 @@ public class Libros extends HttpServlet {
 
     /**
      * Función showEditForm. Se manda llamar cuando se da click en el botón de
-     * 'Editar' de una direccion, el cual desde la vista index.jsp le manda al
-     * controlador la palabra 'Edit' más el id de la dirección a editar, estos
+     * 'Editar' de un libro, el cual desde la vista index.jsp le manda al
+     * controlador la palabra 'Edit' más el id del libro a editar, estos
      * parámetros son reconocidos en el GET y de ahí se llama a esta función, la
-     * cual se encarga de cargar la vista del formulario para editar la
-     * dirección, mostrando los datos preecargados que tiene la dirección a
-     * editar, esto gracias a que al atributo 'direccion' de la vista se le
+     * cual se encarga de cargar la vista del formulario para editar el
+     * libro, mostrando los datos preecargados que tiene el libro a
+     * editar, esto gracias a que al atributo 'libro' de la vista se le
      * asigna la dirección correspondiente al id recibido por medio de una
      * consulta al controlador de la bd.
      *
      * @param request servlet request
      * @param response servlet response
-     * @param id id de la direccion
+     * @param id id del libro
      * @throws IOException
      * @throws SQLException
      * @throws ServletException
@@ -243,7 +242,19 @@ public class Libros extends HttpServlet {
         
     }
 
-    private void updateDireccion(HttpServletRequest request, HttpServletResponse response, int id)
+     /**
+     * Función Update.
+     * Se encarga de modificar los datos de un libro en la base de datos.
+     * Los nuevos valores los recibe por parte del jsp de create y por medio de
+     * parámetros.
+     * @param request servlet request
+     * @param response servlet response
+     * @param id id del libro.
+     * @throws IOException
+     * @throws SQLException
+     * @throws ServletException 
+     */
+    private void update(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
         String titulo = request.getParameter("titulo");
         int año = Integer.parseInt(request.getParameter("aaa"));
@@ -255,11 +266,11 @@ public class Libros extends HttpServlet {
     }
 
     /**
-     * Función ShowDirections.
+     * Función ShowlIBROS.
      * Se encarga de realizar la consulta de obtener todos los registros de 
-     * las direcciones en la base de datos y de mandárselas a la vista por
+     * los libros en la base de datos y de mandárselas a la vista por
      * medio de la función request.setAttribute.
-     * @param request servlet request
+         * @param request servlet request
      * @param response servlet response
      * @throws SQLException error en la consulta.
      * @throws IOException error IO.
@@ -273,6 +284,18 @@ public class Libros extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * Función Sell
+     * Esta función se manda llamar cuando el usuario da click en vender en 
+     * alguno de los libros, y lo que ésta función hace es cargar el jsp
+     * de sell, obtener los datos del libro correspondiente a vender, y 
+     * mandarlos al jsp y mostrarlos por medio de parámetros.
+     * @param request
+     * @param response
+     * @param id id del libro.
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void Sell(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException {
         Libro libro = con.obtenerLibro(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Libro/sell.jsp");
@@ -281,6 +304,17 @@ public class Libros extends HttpServlet {
 
     }
 
+    /**
+     * Función Sold
+     * Se manda llamar cuando el usuario vende un libro.
+     * Lo que hace es obtener el precio por medio de parámetro y el id del 
+     * usuario por medio de sessión.getAttribute. Posteriormente realiza un 
+     * insert en la tabla venta_libro.
+     * @param request
+     * @param response
+     * @param libroID id del libro
+     * @throws IOException 
+     */
     private void Sold(HttpServletRequest request, HttpServletResponse response, int libroID) {
         int precio = Integer.parseInt(request.getParameter("precio"));
         HttpSession session = (HttpSession) request.getSession();
@@ -292,6 +326,18 @@ public class Libros extends HttpServlet {
             Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     /**
+     * Función misLibrosVendidos
+     * Esta función se manda llamar cuando el usuario da click en el botón de
+     * 'mis libros vendidos', en este se muestra el id de venta, el nombre
+     * del libro y el precio del libro de cada uno de los libros
+     * vendidos por el usuario logueado.
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException 
+     */
     private void misLibrosVendidos(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
         

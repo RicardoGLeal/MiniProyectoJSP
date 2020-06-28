@@ -16,16 +16,11 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Todos menos rick Clase Controller Esta clase es el servlet que
- * se encarga de controlar el modelo vista-controlador de un CRUD de
- * Direcciones. Para esto este servlet incorpora los métodos get y post, con los
- * cuales se puede realizar el envió de información por medio del servlet y las
- * vistas. Este programa cuenta con dos vistas diseñadas en jsp: index yC
- * direction-form. Index es la que muestra todas las direcciones y los botones
- * para agregar, eliminar y editar. direction-form muestra el formulario
- * utilizado para crear y editar direcciones.} La manera en la que se realiza la
- * comunicación de información es por medio de parámetros utilizados en inputs y
- * botones en forms.
+ * @author Todos menos rick Clase Main
+ * Esta clase es el servlet utilizado para la ventana principal, la cual 
+ * se abre después de que el usuario se loguea.
+ * Este cuenta con tres botones con los cuales el usuario puede acceder a 
+ * peliculas, libros o videojuegos.
  */
 @WebServlet(urlPatterns = {"/Main"})
 public class Main extends HttpServlet {
@@ -87,7 +82,7 @@ public class Main extends HttpServlet {
 
         try {
             if (link == null) {
-                ShowDirections(request, response);
+                ShowMain(request, response);
             } else {
                 String[] splitedLink = link.split("/");
                 switch (splitedLink[0]) {
@@ -99,15 +94,6 @@ public class Main extends HttpServlet {
                         break;
                     case "Videojuegos":
                         response.sendRedirect("Videojuegos");
-                        break;
-                    case "Update":
-                        updateDireccion(request, response, Integer.parseInt(splitedLink[1]));
-                        break;
-                    case "Delete":
-                        DeleteDirection(request, response, Integer.parseInt(splitedLink[1]));
-                        break;
-                    default:
-                        ShowDirections(request, response);
                         break;
                 }
             }
@@ -126,122 +112,10 @@ public class Main extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+   
 
     /**
-     * Función showCreate. Se manda llamar cuando se da click en el botón de
-     * 'Agregar', el cual desde la vista index.jsp le manda al controlador la
-     * palabra 'Agregar', la cual es reconocida en el GET y se llama a esta
-     * función, la cual se encarga de cargar la vista del formulario para
-     * agregar una dirección.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException
-     * @throws IOException
-     */
-    private void showCreate(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {//To change body of generated methods, choose Tools | Templates.
-        RequestDispatcher dispatcher = request.getRequestDispatcher("direction-form.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    /**
-     * Función insertDirection. Se manda llamar cuando se da click en el botón
-     * de Guardar, el cual desde la vista le manda al controlador la palabra
-     * "Insert", posteriormente es reconocida en el GET y se llama a esta
-     * función. La vista también almacena los valores de la dirección, los
-     * cuales en esta función se reciben por medio de erquest.getParameter para
-     * finalmente realizar el insert en la base de datos.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws SQLException
-     * @throws IOException
-     */
-    private void insertDirection(HttpServletRequest request, HttpServletResponse response)
-            throws SQLException, IOException {
-        String calle = request.getParameter("calle");
-        int numExt = Integer.parseInt(request.getParameter("numExt"));
-        String colonia = request.getParameter("colonia");
-        int cp = Integer.parseInt(request.getParameter("cp"));
-        //direccionesBD.insertarDireccion(new Direccion(calle, numExt, colonia, cp));
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException ex) {
-            Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
-    /**
-     * Función DeleteDirection Esta función se manda llamar desde el GET, cuando
-     * se da click en el botón de 'eliminar' en alguna de las direcciones.
-     * Cuando se da click en el botón de 'eliminar' la vista le manda al
-     * controlador la palabra "Delete" más el ID de la dirección, posteriormente
-     * estos datos son reconocidos en el GET y se llama a esta función, la cual
-     * manda llamar a la función que ejecuta la query de eliminar una dirección.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @param id ID de la dirección a eliminar.
-     * @throws IOException
-     * @throws SQLException
-     */
-    private void DeleteDirection(HttpServletRequest request, HttpServletResponse response, int id)
-            throws IOException, SQLException {
-        //direccionesBD.eliminarDireccion(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        try {
-            dispatcher.forward(request, response);
-        } catch (ServletException ex) {
-            Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     * Función showEditForm. Se manda llamar cuando se da click en el botón de
-     * 'Editar' de una direccion, el cual desde la vista index.jsp le manda al
-     * controlador la palabra 'Edit' más el id de la dirección a editar, estos
-     * parámetros son reconocidos en el GET y de ahí se llama a esta función, la
-     * cual se encarga de cargar la vista del formulario para editar la
-     * dirección, mostrando los datos preecargados que tiene la dirección a
-     * editar, esto gracias a que al atributo 'direccion' de la vista se le
-     * asigna la dirección correspondiente al id recibido por medio de una
-     * consulta al controlador de la bd.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @param id id de la direccion
-     * @throws IOException
-     * @throws SQLException
-     * @throws ServletException
-     */
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response, int id)
-            throws IOException, SQLException, ServletException {
-        //Direccion direccion = direccionesBD.consultarDirecciones("id", id).get(0);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("direction-form.jsp");
-        //request.setAttribute("direction", direccion);
-        dispatcher.forward(request, response);
-    }
-
-    private void updateDireccion(HttpServletRequest request, HttpServletResponse response, int id)
-            throws IOException, SQLException, ServletException {
-        String calle = request.getParameter("calle");
-        int numExt = Integer.parseInt(request.getParameter("numExt"));
-        String colonia = request.getParameter("colonia");
-        int cp = Integer.parseInt(request.getParameter("cp"));
-
-        Direccion direccion = new Direccion(id, calle, numExt, colonia, cp);
-        //direccionesBD.actualizarDireccion(direccion);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-        dispatcher.forward(request, response);
-    }
-
-    /**
-     * Función ShowDirections. Se encarga de realizar la consulta de obtener
-     * todos los registros de las direcciones en la base de datos y de
-     * mandárselas a la vista por medio de la función request.setAttribute.
+     * Función ShowMain. Se encarga de cargar el jsp del main
      *
      * @param request servlet request
      * @param response servlet response
@@ -249,10 +123,8 @@ public class Main extends HttpServlet {
      * @throws IOException error IO.
      * @throws ServletException error en el servlet.
      */
-    private void ShowDirections(HttpServletRequest request, HttpServletResponse response)
+    private void ShowMain(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException, ServletException {
-        //List<Direccion> direcciones = direccionesBD.consultarDirecciones();
-        //request.setAttribute("listDirections", direcciones);
         RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
         dispatcher.forward(request, response);
     }
