@@ -5,7 +5,9 @@
  */
 package servletPackage;
 
+import Models.Libro;
 import Models.Pelicula;
+import Models.VentaLibro;
 import Models.VentaPelicula;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -63,7 +65,7 @@ public class Libros extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            ShowPeliculas(request, response);
+            ShowLibros(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -86,7 +88,7 @@ public class Libros extends HttpServlet {
             String link = request.getParameter("link");
 
             if (link == null) {
-                ShowPeliculas(request, response);
+                ShowLibros(request, response);
             } else {
                 String[] splitedLink = link.split("/");
                 switch (splitedLink[0]) {
@@ -94,7 +96,7 @@ public class Libros extends HttpServlet {
                         showCreate(request, response);
                         break;
                     case "Insert":
-                        insertPelicula(request, response);
+                        insertLibro(request, response);
                         break;
                     case "Edit":
                         showEditForm(request, response, Integer.parseInt(splitedLink[1]));
@@ -111,9 +113,9 @@ public class Libros extends HttpServlet {
                     case "Sold":
                         Sold(request, response, Integer.parseInt(splitedLink[1]));
                     case "Mis peliculas vendidas":
-                        misPelisVendidas(request, response);
+                        misLibrosVendidos(request, response);
                     default:
-                        ShowPeliculas(request, response);
+                        ShowLibros(request, response);
                         break;
                 }
             }
@@ -146,7 +148,7 @@ public class Libros extends HttpServlet {
      */
     private void showCreate(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {//To change body of generated methods, choose Tools | Templates.
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/create.jsp");
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Libro/create.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -166,15 +168,16 @@ public class Libros extends HttpServlet {
      * @throws SQLException
      * @throws IOException 
      */
-    private void insertPelicula(HttpServletRequest request, HttpServletResponse response)
+    private void insertLibro(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
-        String nombre = request.getParameter("nombre");
-        int año = Integer.parseInt(request.getParameter("ano"));
-        String categoria = request.getParameter("categoria");
-        String director = request.getParameter("director");
-        float recaudacion = Float.parseFloat(request.getParameter("recaudacion"));
-        con.insertarPelicula(new Pelicula(nombre,año,categoria,director,recaudacion));
-        response.sendRedirect("Peliculas");
+        String titulo = request.getParameter("titulo");
+        //int año = Integer.parseInt(request.getParameter("aaa"));
+        int año = 2000;
+        String autor = request.getParameter("autor");
+        String sinopsis = request.getParameter("sinopsis");
+        String editorial = request.getParameter("editorial");
+        con.insertarLibro(new Libro(titulo,año,autor,sinopsis,editorial));
+        response.sendRedirect("Libros");
     }
 
     /**
@@ -192,8 +195,8 @@ public class Libros extends HttpServlet {
      */
     private void Delete(HttpServletRequest request, HttpServletResponse response, int id) 
             throws IOException, SQLException{
-        con.eliminarPelicula(id);
-        response.sendRedirect("Peliculas");
+        con.eliminarLibro(id);
+        response.sendRedirect("Libros");
 
     }
 
@@ -217,22 +220,22 @@ public class Libros extends HttpServlet {
      */
     private void showEditForm(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-        Pelicula pelicula = con.obtenerPelicula(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/create.jsp");
-        request.setAttribute("pelicula", pelicula);
+        Libro libro = con.obtenerLibro(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Libro/create.jsp");
+        request.setAttribute("libro", libro);
         dispatcher.forward(request, response);
         
     }
 
     private void updateDireccion(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
-       String nombre = request.getParameter("nombre");
-        int año = Integer.parseInt(request.getParameter("ano"));
-        String categoria = request.getParameter("categoria");
-        String director = request.getParameter("director");
-        float recaudacion = Float.parseFloat(request.getParameter("recaudacion"));
-        con.actualizarPelicula(new Pelicula(id, nombre, año, categoria, director, recaudacion));
-        response.sendRedirect("Peliculas");
+        String titulo = request.getParameter("titulo");
+        int año = Integer.parseInt(request.getParameter("aaa"));
+        String autor = request.getParameter("autor");
+        String sinopsis = request.getParameter("sinopsis");
+        String editorial = request.getParameter("editorial");
+        con.actualizarLibro(new Libro(id, titulo, año, autor, sinopsis, editorial));
+        response.sendRedirect("Libros");
     }
 
     /**
@@ -246,42 +249,42 @@ public class Libros extends HttpServlet {
      * @throws IOException error IO.
      * @throws ServletException error en el servlet.
      */
-    private void ShowPeliculas(HttpServletRequest request, HttpServletResponse response) 
+    private void ShowLibros(HttpServletRequest request, HttpServletResponse response) 
         throws SQLException, IOException, ServletException {
-        List<Pelicula> peliculas = con.obtenerPeliculas();
-        request.setAttribute("listPeliculas", peliculas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/index.jsp");
+        List<Libro> libros = con.obtenerLibros();
+        request.setAttribute("listLibros", libros);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Libro/index.jsp");
         dispatcher.forward(request, response);
     }
 
     private void Sell(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException {
-        Pelicula pelicula = con.obtenerPelicula(id);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/sell.jsp");
-        request.setAttribute("pelicula", pelicula);
+        Libro libro = con.obtenerLibro(id);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Libro/sell.jsp");
+        request.setAttribute("libro", libro);
         dispatcher.forward(request, response);
 
     }
 
-    private void Sold(HttpServletRequest request, HttpServletResponse response, int peliculaID) {
+    private void Sold(HttpServletRequest request, HttpServletResponse response, int libroID) {
         int precio = Integer.parseInt(request.getParameter("precio"));
         HttpSession session = (HttpSession) request.getSession();
         int userid = Integer.parseInt(session.getAttribute("id").toString());
-        con.insertarVentaPelicula(new VentaPelicula(precio, userid, peliculaID));
+        con.insertarVentaLibro(new VentaLibro(precio, userid, libroID));
         try {
-            response.sendRedirect("Peliculas");
+            response.sendRedirect("Libros");
         } catch (IOException ex) {
             Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void misPelisVendidas(HttpServletRequest request, HttpServletResponse response) 
+    private void misLibrosVendidos(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
         
         //HttpSession session = (HttpSession) request.getSession();
         //int userid = Integer.parseInt(session.getAttribute("id").toString());
-        List<VentaPelicula> peliculas = con.obtenerVentaPeliculaUser(1);
+        List<VentaLibro> libros = con.obtenerVentaLibroUser(1);
         
-        request.setAttribute("listPeliculas", peliculas);
-        RequestDispatcher dispatcher = request.getRequestDispatcher("/Pelicula/mispeliculas.jsp");
+        request.setAttribute("listPeliculas", libros);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("/Libro/misLibros.jsp");
         dispatcher.forward(request, response);
     }
 }

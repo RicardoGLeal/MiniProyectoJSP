@@ -40,19 +40,19 @@
                             <input type="hidden" name="id" value="<c:out value='${libro.id}' />" />
                         </c:if>
                         <fieldset class="form-group">
-                            <label>Título</label> <input type="text" value="<c:out value='${libro.titulo}' />" class="form-control" name="nombre" required="required">
+                            <label>Título</label> <input type="text" value="<c:out value='${libro.titulo}' />" class="form-control" name="titulo" required="required">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Año</label> <input type="number" value="<c:out value='${libro.año}' />" class="form-control" name="año">
+                            <label>Año</label> <input type="number" value="<c:out value='${libro.año}' />" class="form-control" name="aaa">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Autor</label> <input type="text" value="<c:out value='${libro.autor}' />" class="form-control" name="desarrollador">
+                            <label>Autor</label> <input type="text" value="<c:out value='${libro.autor}' />" class="form-control" name="autor">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Sinopsis</label> <input type="text"value="<c:out value='${libro.sinopsis}' />" class="form-control" name="distribuidora">
+                            <label>Sinopsis</label> <input type="text"value="<c:out value='${libro.sinopsis}' />" class="form-control" name="sinopsis">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Editorial</label> <input type="text"value="<c:out value='${libro.editorial}' />" class="form-control" name="clasificacion">
+                            <label>Editorial</label> <input type="text"value="<c:out value='${libro.editorial}' />" class="form-control" name="editorial">
                         </fieldset>
                         <c:if test="${libro != null}">
                             <button name="link" type="submit" class="btn btn-success" value="Update/<c:out value='${libro.id}' />">Actualizar</button>

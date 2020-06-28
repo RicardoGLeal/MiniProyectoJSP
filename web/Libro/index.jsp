@@ -11,8 +11,9 @@
         <header>
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
+
                 <div>
-                    <a href="<%=request.getContextPath()%>/Main" class="navbar-brand"> Libros</a>
+                    <a href="<%=request.getContextPath()%>/Main" class="navbar-brand"> Libros </a>
                 </div>
                 <ul class="navbar-nav">
                     <li>
@@ -21,7 +22,6 @@
                         </a>
                     </li>
                 </ul>
-                           
             </nav>
         </header>
         <br>
@@ -30,12 +30,12 @@
             <div class="container">
                 <h3 class="text-center">Lista de Libros</h3>
                 <hr>
-                <p>En esta sección se encuentra un listado de todos los libros registrados por parte de todos los usuarios de esta comunidad, puedes agregar uno nuevo o puedes vender alguno de estos si cuentas con el y deseas venderlo.</p>
+                <p>En esta sección se encuentra un listado de todos los libros registradas por parte de todos los usuarios de esta comunidad, puedes agregar uno nuevo o puedes vender alguno de estos si cuentas con el y deseas venderlo.</p>
                 <br><br>
                 <div class="container text-left">
                     <form action="Libros" method="post">
-                        <input name="link" type="submit" value="Recargar" class="btn btn-success">
                         <input name="link" type="submit" value="Agregar" class="btn btn-success">
+                        <input name="link" type="submit" value="Mis libros vendidas" class="btn btn-primary">
                     </form>
                 </div>
 
@@ -52,7 +52,7 @@
                     </thead>
                     <tbody>
                     <form action="Libros" method="post">
-                        <c:forEach var="direction" items="${listLibros}">          
+                        <c:forEach var="libro" items="${listLibros}">          
                             <tr>
                                 <td><c:out value="${libro.id}" /></td>
                                 <td><c:out value="${libro.titulo}" /></td>
@@ -63,6 +63,7 @@
                                 <td><button type="submit" name="link" id class="btn btn-warning" value="Edit/<c:out value='${libro.id}' />" id="<c:out value='${libro.id}' />">Editar</button>
                                 <td><button type="submit" name="link" id class="btn btn-danger" value="Delete/<c:out value='${libro.id}' />" id="<c:out value='${libro.id}' />">Eliminar</button>
                                 <td><button type="submit" name="link" id class="btn btn-info" value="Sell/<c:out value='${libro.id}' />" id="<c:out value='${libro.id}' />">Vender</button>
+                            </tr>
                         </c:forEach>
                     </form>
                     </tbody>
