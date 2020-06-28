@@ -68,7 +68,7 @@ public class Videojuegos extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            ShowPeliculas(request, response);
+            ShowVideojuegos(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(Videojuegos.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,7 +91,7 @@ public class Videojuegos extends HttpServlet {
             String link = request.getParameter("link");
 
             if (link == null) {
-                ShowPeliculas(request, response);
+                ShowVideojuegos(request, response);
             } else {
                 String[] splitedLink = link.split("/");
                 switch (splitedLink[0]) {
@@ -99,7 +99,7 @@ public class Videojuegos extends HttpServlet {
                         showCreate(request, response);
                         break;
                     case "Insert":
-                        insertPelicula(request, response);
+                        insertVideojuego(request, response);
                         break;
                     case "Edit":
                         showEditForm(request, response, Integer.parseInt(splitedLink[1]));
@@ -115,10 +115,10 @@ public class Videojuegos extends HttpServlet {
                         break;
                     case "Sold":
                         Sold(request, response, Integer.parseInt(splitedLink[1]));
-                    case "Mis peliculas vendidas":
-                        misPelisVendidas(request, response);
+                    case "Mis videojuegos vendidos":
+                        misJueguitosVendidos(request, response);
                     default:
-                        ShowPeliculas(request, response);
+                        ShowVideojuegos(request, response);
                         break;
                 }
             }
@@ -171,10 +171,10 @@ public class Videojuegos extends HttpServlet {
      * @throws SQLException
      * @throws IOException 
      */
-    private void insertPelicula(HttpServletRequest request, HttpServletResponse response)
+    private void insertVideojuego(HttpServletRequest request, HttpServletResponse response)
             throws SQLException, IOException {
         String titulo = request.getParameter("titulo");
-        int año = Integer.parseInt(request.getParameter("año"));
+        int año = Integer.parseInt(request.getParameter("ano"));
         String desarrollador = request.getParameter("desarrollador");
         String distribuidora = request.getParameter("distribuidora");
         String clasificacion = request.getParameter("clasificacion");
@@ -251,7 +251,7 @@ public class Videojuegos extends HttpServlet {
      * @throws IOException error IO.
      * @throws ServletException error en el servlet.
      */
-    private void ShowPeliculas(HttpServletRequest request, HttpServletResponse response) 
+    private void ShowVideojuegos(HttpServletRequest request, HttpServletResponse response) 
         throws SQLException, IOException, ServletException {
         List<Videojuego> videojuegos = con.obtenerVideojuegos();
         request.setAttribute("listVideojuegos", videojuegos);
@@ -278,7 +278,7 @@ public class Videojuegos extends HttpServlet {
             Logger.getLogger(Videojuegos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    private void misPelisVendidas(HttpServletRequest request, HttpServletResponse response) 
+    private void misJueguitosVendidos(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
         
         //HttpSession seVentaPeliculassion = (HttpSession) request.getSession();
