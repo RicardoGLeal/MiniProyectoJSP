@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package servletPackage;
 
 import Models.Pelicula;
@@ -18,23 +23,15 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Todos menos rick Clase Controller Esta clase es el servlet que
- * se encarga de controlar el modelo vista-controlador de un CRUD de
- * Direcciones. Para esto este servlet incorpora los métodos get y post, con los
- * cuales se puede realizar el envió de información por medio del servlet y las
- * vistas. Este programa cuenta con dos vistas diseñadas en jsp: index yC
- * direction-form. Index es la que muestra todas las direcciones y los botones
- * para agregar, eliminar y editar. direction-form muestra el formulario
- * utilizado para crear y editar direcciones.}
- * La manera en la que se realiza la comunicación de información es por medio de 
- * parámetros utilizados en inputs y botones en forms.
+ * @author Propietario
  */
-@WebServlet(name = "Peliculas", urlPatterns = {"/Peliculas"})
-public class Peliculas extends HttpServlet {
+@WebServlet(name = "Libros", urlPatterns = {"/Libros"})
+public class Libros extends HttpServlet {
 
+   
     DBController con;
 
-    public Peliculas() {
+    public Libros() {
         con = new DBController();
     }
 

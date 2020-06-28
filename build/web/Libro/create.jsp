@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
     <head>
-        <title>CRUD Videojuegos</title>
+        <title>CRUD Libro</title>
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
@@ -24,7 +24,7 @@
         <div class="container col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <form action="Videojuegos" method="post">
+                    <form action="Libros" method="post">
                         <caption>
                             <h2>
                                 <c:if test="${libro != null}">

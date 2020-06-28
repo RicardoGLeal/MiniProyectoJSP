@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
     <head>
-        <title>CRUD Peliculas</title>
+        <title>CRUD Libros</title>
         <link rel="stylesheet"
               href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     </head>
@@ -12,7 +12,7 @@
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
                 <div>
-                    <a href="<%=request.getContextPath()%>/Controller" class="navbar-brand"> Peliculas</a>
+                    <a href="<%=request.getContextPath()%>/Controller" class="navbar-brand"> Libros</a>
                 </div>
 
                 <ul class="navbar-nav">
@@ -25,9 +25,9 @@
 
         <div class="row">
             <div class="container">
-                <h3 class="text-center">Lista de Peliculas</h3>
+                <h3 class="text-center">Lista de Libros</h3>
                 <hr>
-                <p>En esta sección se encuentra un listado de todas las películas que estas vendiendo, recuerda que la pelicula tiene que estar registrada.</p>
+                <p>En esta sección se encuentra un listado de todos los libros que estas vendiendo, recuerda que el libro tiene que estar registrado.</p>
             
                 <table class="table table-bordered">
                     <thead>
@@ -38,11 +38,11 @@
                         </tr>
                     </thead>
                     <tbody>
-                       <c:forEach var="pelicula" items="${listPeliculas}">          
+                       <c:forEach var="libro" items="${listLibros}">          
                             <tr>
-                                <td><c:out value="${pelicula.id}" /></td>
-                                <td><c:out value="${pelicula.getPelicula().nombre}" /></td>
-                                <td><c:out value="${pelicula.precio}" /></td>
+                                <td><c:out value="${libro.id}" /></td>
+                                <td><c:out value="${libro.getLibri().titulo}" /></td>
+                                <td><c:out value="${libro.precio}" /></td>
                             </tr>
                         </c:forEach>>
                     </tbody>

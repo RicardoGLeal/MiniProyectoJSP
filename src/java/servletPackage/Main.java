@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Ricardo González Leal Clase Controller Esta clase es el servlet que
+ * @author Todos menos rick Clase Controller Esta clase es el servlet que
  * se encarga de controlar el modelo vista-controlador de un CRUD de
  * Direcciones. Para esto este servlet incorpora los métodos get y post, con los
  * cuales se puede realizar el envió de información por medio del servlet y las
