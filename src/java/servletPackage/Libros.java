@@ -279,9 +279,9 @@ public class Libros extends HttpServlet {
     private void misLibrosVendidos(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
         
-        //HttpSession session = (HttpSession) request.getSession();
-        //int userid = Integer.parseInt(session.getAttribute("id").toString());
-        List<VentaLibro> libros = con.obtenerVentaLibroUser(1);
+        HttpSession session = (HttpSession) request.getSession();
+        int userid = Integer.parseInt(session.getAttribute("id").toString());
+        List<VentaLibro> libros = con.obtenerVentaLibroUser(userid);
         
         request.setAttribute("listPeliculas", libros);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Libro/misLibros.jsp");
