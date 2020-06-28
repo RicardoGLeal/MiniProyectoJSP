@@ -65,16 +65,28 @@ public class Peliculas extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = (HttpSession) request.getSession();
+        boolean loggued = false;
+
         try {
-            ShowPeliculas(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
+            int userid = Integer.parseInt(session.getAttribute("id").toString());
+            loggued = true;
+        } catch (NullPointerException e) {
+            loggued = false;
+            response.sendRedirect("Logout");
+        }
+        if (loggued) {
+            try {
+                ShowPeliculas(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
     /**
-     * Handles the HTTP <code>POST</code> method. 
-     * Esta función se ejecuta cuando
+     * Handles the HTTP <code>POST</code> method. Esta función se ejecuta cuando
      * en una vista existe un form que tiene como Action este controlador y
      * tiene como método post.     
      * @param request servlet request

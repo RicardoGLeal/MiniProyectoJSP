@@ -41,10 +41,10 @@
                        <c:forEach var="libro" items="${listLibros}">          
                             <tr>
                                 <td><c:out value="${libro.id}" /></td>
-                                <td><c:out value="${libro.getLibri().titulo}" /></td>
+                                <td><c:out value="${libro.getLibro().titulo}" /></td>
                                 <td><c:out value="${libro.precio}" /></td>
                             </tr>
-                        </c:forEach>>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

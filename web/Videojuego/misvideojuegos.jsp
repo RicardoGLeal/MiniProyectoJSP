@@ -44,7 +44,7 @@
                                 <td><c:out value="${videojuego.getVideojuego().titulo}" /></td>
                                 <td><c:out value="${videojuego.precio}" /></td>
                             </tr>
-                        </c:forEach>>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>

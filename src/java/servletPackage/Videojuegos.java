@@ -65,12 +65,27 @@ public class Videojuegos extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = (HttpSession) request.getSession();
+        boolean loggued = false;
+        
         try {
-            
-            ShowVideojuegos(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(Videojuegos.class.getName()).log(Level.SEVERE, null, ex);
+            int userid = Integer.parseInt(session.getAttribute("id").toString());
+            loggued = true;
+        } catch (NullPointerException e) {
+            loggued = false;
+            response.sendRedirect("Logout");
         }
+
+        if (loggued) {
+            try {
+                ShowVideojuegos(request, response);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(Videojuegos.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 
     /**
@@ -137,7 +152,7 @@ public class Videojuegos extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }// </editor-fold>
+    }// </editor-fold>// </editor-fold>
 
     /**
      * Función showCreate. Se manda llamar cuando se da click en el botón de

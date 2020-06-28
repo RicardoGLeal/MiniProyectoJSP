@@ -64,10 +64,24 @@ public class Libros extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        HttpSession session = (HttpSession) request.getSession();
+        boolean loggued = false;
+
         try {
-            ShowLibros(request, response);
-        } catch (SQLException ex) {
-            Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
+            int userid = Integer.parseInt(session.getAttribute("id").toString());
+            loggued = true;
+        } catch (NullPointerException e) {
+            loggued = false;
+            response.sendRedirect("Logout");
+        }
+
+        if (loggued) {
+            try {
+                ShowLibros(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -112,8 +126,10 @@ public class Libros extends HttpServlet {
                         break;
                     case "Sold":
                         Sold(request, response, Integer.parseInt(splitedLink[1]));
+                        break;
                     case "Mis libros vendidos":
                         misLibrosVendidos(request, response);
+                        break;
                     default:
                         ShowLibros(request, response);
                         break;
@@ -279,11 +295,11 @@ public class Libros extends HttpServlet {
     private void misLibrosVendidos(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
         
-        //HttpSession session = (HttpSession) request.getSession();
-        //int userid = Integer.parseInt(session.getAttribute("id").toString());
-        List<VentaLibro> libros = con.obtenerVentaLibroUser(1);
+        HttpSession session = (HttpSession) request.getSession();
+        int userid = Integer.parseInt(session.getAttribute("id").toString());
+        List<VentaLibro> libros = con.obtenerVentaLibroUser(userid);
         
-        request.setAttribute("listPeliculas", libros);
+        request.setAttribute("listLibros", libros);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Libro/misLibros.jsp");
         dispatcher.forward(request, response);
     }

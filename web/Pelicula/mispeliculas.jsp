@@ -44,7 +44,7 @@
                                 <td><c:out value="${pelicula.getPelicula().nombre}" /></td>
                                 <td><c:out value="${pelicula.precio}" /></td>
                             </tr>
-                        </c:forEach>>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
