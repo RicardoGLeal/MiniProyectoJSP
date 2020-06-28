@@ -3,7 +3,6 @@ package servletPackage;
 import Models.VentaVideojuego;
 import Models.Videojuego;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -18,16 +17,15 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Ricardo González Leal Clase Controller Esta clase es el servlet que
- * se encarga de controlar el modelo vista-controlador de un CRUD de
- * Direcciones. Para esto este servlet incorpora los métodos get y post, con los
- * cuales se puede realizar el envió de información por medio del servlet y las
- * vistas. Este programa cuenta con dos vistas diseñadas en jsp: index yC
- * direction-form. Index es la que muestra todas las direcciones y los botones
- * para agregar, eliminar y editar. direction-form muestra el formulario
- * utilizado para crear y editar direcciones.}
- * La manera en la que se realiza la comunicación de información es por medio de 
- * parámetros utilizados en inputs y botones en forms.
+ * @author Ricardo-Angel-Erick Clase Videojuego Esta clase es el servlet
+ * utilizado para el manejo del crud de videojuegos y del sistema de venta de
+ * videojuegos. En el doGet de este servlet, se verifica que haya un usuario
+ * logueado, de lo contrario lo redirecciona a el login para que inicie sesión.
+ * Este servlet conecta con cuatro diferentes JSP utilizados para el sistema,
+ * uno para mostrar un listado de los videojuegos, otro para dar de alta uno
+ * nuevo, otro para venderlo y otro para mostrar un listado de los videojuegos
+ * vendidos. La manera en la que se realiza la comunicación de información es
+ * por medio de parámetros utilizados en inputs y botones en forms.
  */
 @WebServlet(name = "Videojuegos", urlPatterns = {"/Videojuegos"})
 public class Videojuegos extends HttpServlet {
@@ -119,7 +117,7 @@ public class Videojuegos extends HttpServlet {
                         showEditForm(request, response, Integer.parseInt(splitedLink[1]));
                         break;
                     case "Update":
-                        updateDireccion(request, response, Integer.parseInt(splitedLink[1]));
+                        update(request, response, Integer.parseInt(splitedLink[1]));
                         break;
                     case "Delete":
                         Delete(request, response, Integer.parseInt(splitedLink[1]));
@@ -159,28 +157,25 @@ public class Videojuegos extends HttpServlet {
      * 'Agregar', el cual desde la vista index.jsp le manda al controlador la
      * palabra 'Agregar', la cual es reconocida en el GET y se llama a esta
      * función, la cual se encarga de cargar la vista del formulario para
-     * agregar una dirección.
+     * agregar un videojuego.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException
      * @throws IOException
      */
     private void showCreate(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {//To change body of generated methods, choose Tools | Templates.
+            throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Videojuego/create.jsp");
         dispatcher.forward(request, response);
     }
-
-    
  
-    
     /**
-     * Función insertDirection.
+     * Función insertVideojuego.
      * Se manda llamar cuando se da click en el botón de Guardar, el cual desde
      * la vista le manda al controlador la palabra "Insert", posteriormente es
      * reconocida en el GET y se llama a esta función.
-     * La vista también almacena los valores de la dirección, los cuales en
-     * esta función se reciben por medio de erquest.getParameter para finalmente
+     * La vista también almacena los valores del videojuego, los cuales en
+     * esta función se reciben por medio de request.getParameter para finalmente
      * realizar el insert en la base de datos.
      * @param request servlet request
      * @param response servlet response
@@ -199,12 +194,12 @@ public class Videojuegos extends HttpServlet {
     }
 
     /**
-     * Función DeleteDirection Esta función se manda llamar desde el GET, cuando
+     * Función Delete Esta función se manda llamar desde el GET, cuando
      * se da click en el botón de 'eliminar' en alguna de las direcciones.
      * Cuando se da click en el botón de 'eliminar' la vista le manda al
      * controlador la palabra "Delete" más el ID de la dirección, posteriormente
      * estos datos son reconocidos en el GET y se llama a esta función, la cual
-     * manda llamar a la función que ejecuta la query de eliminar una dirección.
+     * manda llamar a la función que ejecuta la query de eliminar un videojuego.
      * @param request servlet request
      * @param response servlet response
      * @param id ID de la dirección a eliminar.
@@ -221,17 +216,17 @@ public class Videojuegos extends HttpServlet {
     /**
      * Función showEditForm. Se manda llamar cuando se da click en el botón de
      * 'Editar' de una direccion, el cual desde la vista index.jsp le manda al
-     * controlador la palabra 'Edit' más el id de la dirección a editar, estos
+     * controlador la palabra 'Edit' más el id del videojuego a editar, estos
      * parámetros son reconocidos en el GET y de ahí se llama a esta función, la
      * cual se encarga de cargar la vista del formulario para editar la
-     * dirección, mostrando los datos preecargados que tiene la dirección a
-     * editar, esto gracias a que al atributo 'direccion' de la vista se le
-     * asigna la dirección correspondiente al id recibido por medio de una
+     * dirección, mostrando los datos preecargados que tiene el videojuego a
+     * editar, esto gracias a que al atributo 'videojuego' de la vista se le
+     * asigna la videojuego correspondiente al id recibido por medio de una
      * consulta al controlador de la bd.
      *
      * @param request servlet request
      * @param response servlet response
-     * @param id id de la direccion
+     * @param id id del videojuego.
      * @throws IOException
      * @throws SQLException
      * @throws ServletException
@@ -245,7 +240,19 @@ public class Videojuegos extends HttpServlet {
         
     }
 
-    private void updateDireccion(HttpServletRequest request, HttpServletResponse response, int id)
+    /**
+     * Función Update.
+     * Se encarga de modificar los datos de un videojuego en la base de datos.
+     * Los nuevos valores los recibe por parte del jsp de create y por medio de
+     * parámetros.
+     * @param request servlet request
+     * @param response servlet response
+     * @param id id del videojuego.
+     * @throws IOException
+     * @throws SQLException
+     * @throws ServletException 
+     */
+    private void update(HttpServletRequest request, HttpServletResponse response, int id)
             throws IOException, SQLException, ServletException {
        String titulo = request.getParameter("titulo");
         int año = Integer.parseInt(request.getParameter("ano"));
@@ -257,9 +264,9 @@ public class Videojuegos extends HttpServlet {
     }
 
     /**
-     * Función ShowDirections.
+     * Función ShowVideojuegos.
      * Se encarga de realizar la consulta de obtener todos los registros de 
-     * las direcciones en la base de datos y de mandárselas a la vista por
+     * los videojuegos en la base de datos y de mandárselas a la vista por
      * medio de la función request.setAttribute.
      * @param request servlet request
      * @param response servlet response
@@ -275,6 +282,14 @@ public class Videojuegos extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    /**
+     * 
+     * @param request
+     * @param response
+     * @param id
+     * @throws IOException
+     * @throws ServletException 
+     */
     private void Sell(HttpServletRequest request, HttpServletResponse response, int id) throws IOException, ServletException {
         Videojuego videojuego = con.obtenerVideojuego(id);
         RequestDispatcher dispatcher = request.getRequestDispatcher("/Videojuego/sell.jsp");
