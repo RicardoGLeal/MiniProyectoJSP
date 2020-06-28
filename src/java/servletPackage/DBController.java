@@ -681,10 +681,10 @@ public class DBController {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM venta_videojuego");   
             result = stmt.executeQuery();
             
-            int id = result.getInt("videojuegoid");
-            Videojuego videojuego = obtenerVideojuego(id);
-            
             while(result.next()){
+                int id = result.getInt("videojuegoid");
+            Videojuego videojuego = obtenerVideojuego(id);
+
                 VentaVideojuego p = new VentaVideojuego(
                         result.getInt("id"),
                         result.getInt("precio"),

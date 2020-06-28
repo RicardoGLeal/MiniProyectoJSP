@@ -11,11 +11,11 @@ package Models;
  */
 public class Libro {
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -27,11 +27,11 @@ public class Libro {
         this.titulo = titulo;
     }
 
-    public Integer getAño() {
+    public int getAño() {
         return año;
     }
 
-    public void setAño(Integer año) {
+    public void setAño(int año) {
         this.año = año;
     }
 
@@ -59,16 +59,15 @@ public class Libro {
         this.editorial = editorial;
     }
     
-    private Integer id;
+    private int id;
     private String titulo;
-    private Integer año;
+    private int año;
     private String autor;
     private String sinopsis;
     private String editorial;
     
     public Libro(String titulo, Integer año, String autor, String sinopsis, String editorial)
     {
-        this.id = id;
         this.titulo = titulo;
         this.año = año;
         this.autor = autor;
@@ -78,6 +77,7 @@ public class Libro {
     
     public Libro(Integer id, String titulo, Integer año, String autor, String sinopsis, String editorial)
     {
+        this.id = id;
         this.titulo = titulo;
         this.año = año;
         this.autor = autor;
