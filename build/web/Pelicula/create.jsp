@@ -12,7 +12,7 @@
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
                 <div>
-                    <h2> Bienvenido <c:out value='${user}'/></h2>
+                    <h2 style="color:whitesmoke;"> Bienvenido <c:out value='${user}'/></h2>
                 </div>
                 <div>
                     &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/Peliculas" class="navbar-brand"> Volver </a>
