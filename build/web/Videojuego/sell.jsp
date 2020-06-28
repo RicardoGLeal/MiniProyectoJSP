@@ -12,11 +12,14 @@
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
                 <div>
-                    <a href="<%=request.getContextPath()%>/Peliculas" class="navbar-brand"> Videojuegos </a>
+                    <h2> Bienvenido <c:out value='${user}'/></h2>
+                </div>
+                <div>
+                    &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/Videojuegos" class="navbar-brand"> Volver </a>
                 </div>
 
                 <ul class="navbar-nav">
-                    <li><a href="<%=request.getContextPath()%>/Peliculas" class="nav-link"> Videojuegos</a></li>
+                    <li><a href="<%=request.getContextPath()%>/Logout" class="nav-link">Salir</a></li>
                 </ul>
             </nav>
         </header>

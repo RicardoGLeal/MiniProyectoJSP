@@ -13,7 +13,10 @@
                  style="background-color: lightseagreen">
 
                 <div>
-                    <a href="<%=request.getContextPath()%>/Main" class="navbar-brand"> Videojuegos</a>
+                    <h2> Bienvenido <c:out value='${user}'/></h2>
+                </div>
+                <div>
+                    &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/Main" class="navbar-brand"> Volver</a>
                 </div>
                 <ul class="navbar-nav">
                     <li>

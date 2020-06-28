@@ -12,12 +12,14 @@
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
                 <div>
-                    <a href="<%=request.getContextPath()%>/Controller" class="navbar-brand"> Videojuegos</a>
+                    <h2> Bienvenido <c:out value='${user}'/></h2>
+                </div>
+                <div>
+                    &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/Videojuegos" class="navbar-brand"> Volver </a>
                 </div>
 
                 <ul class="navbar-nav">
-                    <li><a href="<%=request.getContextPath()%>/Controller"
-                           class="nav-link"><c:out value='${user}'/></a></li>
+                    <li><a href="<%=request.getContextPath()%>/Logout" class="nav-link">Salir</a></li>
                 </ul>
             </nav>
         </header>
@@ -44,7 +46,7 @@
                                 <td><c:out value="${videojuego.getVideojuego().titulo}" /></td>
                                 <td><c:out value="${videojuego.precio}" /></td>
                             </tr>
-                        </c:forEach>>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
