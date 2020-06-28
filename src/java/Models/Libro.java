@@ -66,7 +66,7 @@ public class Libro {
     private String sinopsis;
     private String editorial;
     
-    public Libro(String titulo, Integer año, String autor, String sinopsis, String editorial)
+    public Libro(String titulo, int año, String autor, String sinopsis, String editorial)
     {
         this.titulo = titulo;
         this.año = año;
@@ -75,7 +75,7 @@ public class Libro {
         this.editorial = editorial;
     }
     
-    public Libro(Integer id, String titulo, Integer año, String autor, String sinopsis, String editorial)
+    public Libro(int id, String titulo, int año, String autor, String sinopsis, String editorial)
     {
         this.id = id;
         this.titulo = titulo;

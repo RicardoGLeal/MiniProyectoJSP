@@ -442,10 +442,11 @@ public class DBController {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM venta_libro");   
             result = stmt.executeQuery();
             
-            int id = result.getInt("libroid");
-            Libro libro = obtenerLibro(id);
-            
             while(result.next()){
+                
+                int id = result.getInt("libroid");
+                Libro libro = obtenerLibro(id);
+                
                 VentaLibro p = new VentaLibro(
                         result.getInt("id"),
                         result.getInt("precio"),
@@ -677,14 +678,13 @@ public class DBController {
         ArrayList<VentaVideojuego> ventaVideojuegos = new ArrayList<VentaVideojuego>();
         ResultSet result;
        
-        try{
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM venta_videojuego");   
+        try {
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM venta_videojuego");
             result = stmt.executeQuery();
-            
-            while(result.next()){
-                int id = result.getInt("videojuegoid");
-            Videojuego videojuego = obtenerVideojuego(id);
 
+            while (result.next()) {
+                int id = result.getInt("videojuegoid");
+                Videojuego videojuego = obtenerVideojuego(id);
                 VentaVideojuego p = new VentaVideojuego(
                         result.getInt("id"),
                         result.getInt("precio"),

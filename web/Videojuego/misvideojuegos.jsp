@@ -41,7 +41,7 @@
                        <c:forEach var="videojuego" items="${listVideojuegos}">          
                             <tr>
                                 <td><c:out value="${videojuego.id}" /></td>
-                                <td><c:out value="${videojuego.getVideojuego().nombre}" /></td>
+                                <td><c:out value="${videojuego.getVideojuego().titulo}" /></td>
                                 <td><c:out value="${videojuego.precio}" /></td>
                             </tr>
                         </c:forEach>>

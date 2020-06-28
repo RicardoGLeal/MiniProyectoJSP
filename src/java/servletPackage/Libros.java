@@ -112,7 +112,7 @@ public class Libros extends HttpServlet {
                         break;
                     case "Sold":
                         Sold(request, response, Integer.parseInt(splitedLink[1]));
-                    case "Mis peliculas vendidas":
+                    case "Mis libros vendidos":
                         misLibrosVendidos(request, response);
                     default:
                         ShowLibros(request, response);

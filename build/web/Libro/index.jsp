@@ -35,7 +35,7 @@
                 <div class="container text-left">
                     <form action="Libros" method="post">
                         <input name="link" type="submit" value="Agregar" class="btn btn-success">
-                        <input name="link" type="submit" value="Mis libros vendidas" class="btn btn-primary">
+                        <input name="link" type="submit" value="Mis libros vendidos" class="btn btn-primary">
                     </form>
                 </div>
 
