@@ -113,8 +113,10 @@ public class Videojuegos extends HttpServlet {
                         break;
                     case "Sold":
                         Sold(request, response, Integer.parseInt(splitedLink[1]));
+                        break;
                     case "Mis videojuegos vendidos":
                         misJueguitosVendidos(request, response);
+                        break;
                     default:
                         ShowVideojuegos(request, response);
                         break;

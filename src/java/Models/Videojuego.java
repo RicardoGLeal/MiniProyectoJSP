@@ -11,11 +11,11 @@ package Models;
  */
 public class Videojuego {
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class Videojuego {
         return año;
     }
 
-    public void setAño(Integer año) {
+    public void setAño(int año) {
         this.año = año;
     }
 
@@ -59,14 +59,14 @@ public class Videojuego {
         this.clasificacion = clasificacion;
     }
     
-    private Integer id;
+    private int id;
     private String titulo;
-    private Integer año;
+    private int año;
     private String desarrollador;
     private String distribuidora;
     private String clasificacion;
   
-    public Videojuego(String titulo, Integer año, String desarrollador, String distribuidora, String clasificacion)
+    public Videojuego(String titulo, int año, String desarrollador, String distribuidora, String clasificacion)
     {
         this.id = id;
         this.titulo = titulo;
@@ -76,7 +76,7 @@ public class Videojuego {
         this.clasificacion = clasificacion;
     }
     
-    public Videojuego(Integer id, String titulo, Integer año, String desarrollador, String distribuidora, String clasificacion)
+    public Videojuego(int id, String titulo, int año, String desarrollador, String distribuidora, String clasificacion)
     {
         this.titulo = titulo;
         this.año = año;

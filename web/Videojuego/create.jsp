@@ -40,7 +40,7 @@
                             <input type="hidden" name="id" value="<c:out value='${videojuego.id}' />" />
                         </c:if>
                         <fieldset class="form-group">
-                            <label>Título</label> <input type="text" value="<c:out value='${videojuego.titulo}' />" class="form-control" name="nombre" required="required">
+                            <label>Título</label> <input type="text" value="<c:out value='${videojuego.titulo}' />" class="form-control" name="titulo" required="required">
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Año</label> <input type="number" value="<c:out value='${videojuego.año}' />" class="form-control" name="ano">

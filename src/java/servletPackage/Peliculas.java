@@ -113,8 +113,10 @@ public class Peliculas extends HttpServlet {
                         break;
                     case "Sold":
                         Sold(request, response, Integer.parseInt(splitedLink[1]));
+                        break;
                     case "Mis peliculas vendidas":
                         misPelisVendidas(request, response);
+                        break;
                     default:
                         ShowPeliculas(request, response);
                         break;
@@ -265,16 +267,12 @@ public class Peliculas extends HttpServlet {
 
     }
 
-    private void Sold(HttpServletRequest request, HttpServletResponse response, int peliculaID) {
+    private void Sold(HttpServletRequest request, HttpServletResponse response, int peliculaID) throws IOException, ServletException {
         int precio = Integer.parseInt(request.getParameter("precio"));
         HttpSession session = (HttpSession) request.getSession();
         int userid = Integer.parseInt(session.getAttribute("id").toString());
         con.insertarVentaPelicula(new VentaPelicula(precio, userid, peliculaID));
-        try {
-            response.sendRedirect("Peliculas");
-        } catch (IOException ex) {
-            Logger.getLogger(Peliculas.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        misPelisVendidas(request, response);
     }
     private void misPelisVendidas(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException{
