@@ -11,8 +11,9 @@
         <header>
             <nav class="navbar navbar-expand-md navbar-dark"
                  style="background-color: lightseagreen">
+
                 <div>
-                    <a href="<%=request.getContextPath()%>/Main" class="navbar-brand"> Videojuegos <c:out value='${user}'/></a>
+                    <a href="<%=request.getContextPath()%>/Main" class="navbar-brand"> Videojuegos</a>
                 </div>
                 <ul class="navbar-nav">
                     <li>
@@ -21,7 +22,6 @@
                         </a>
                     </li>
                 </ul>
-                           
             </nav>
         </header>
         <br>
@@ -30,12 +30,12 @@
             <div class="container">
                 <h3 class="text-center">Lista de Videojuegos</h3>
                 <hr>
-                <p>En esta sección se encuentra un listado de todos los videojuegos registrados por parte de todos los usuarios de esta comunidad, puedes agregar uno nuevo o puedes vender alguno de estos si cuentas con el y deseas venderlo.</p>
+                <p>En esta sección se encuentra un listado de todas los videojuegos registrados por parte de todos los usuarios de esta comunidad, puedes agregar uno nuevo o puedes vender alguno de estos si cuentas con el y deseas venderlo.</p>
                 <br><br>
                 <div class="container text-left">
                     <form action="Videojuegos" method="post">
-                        <input name="link" type="submit" value="Recargar" class="btn btn-success">
                         <input name="link" type="submit" value="Agregar" class="btn btn-success">
+                        <input name="link" type="submit" value="Mis videojuegos vendidos" class="btn btn-primary">
                     </form>
                 </div>
 
@@ -43,16 +43,16 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Titulo</th>
+                            <th>Título</th>
                             <th>Año</th>
                             <th>Desarrollador</th>
                             <th>Distribuidora</th>
-                            <th>Clasificacion</th>
+                            <th>Clasificación</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <form action="Controller" method="post">
-                        <c:forEach var="direction" items="${listVideojuegos}">          
+                    <form action="Videojuegos" method="post">
+                        <c:forEach var="videojuego" items="${listVideojuegos}">          
                             <tr>
                                 <td><c:out value="${videojuego.id}" /></td>
                                 <td><c:out value="${videojuego.titulo}" /></td>
@@ -60,15 +60,15 @@
                                 <td><c:out value="${videojuego.desarrollador}" /></td>
                                 <td><c:out value="${videojuego.distribuidora}" /></td>
                                 <td><c:out value="${videojuego.clasificacion}" /></td>
-                                <td><button type="submit" name="link" id class="btn btn-success" value="Edit/<c:out value='${videojuego.id}' />" id="<c:out value='${videojuego.id}' />">Editar</button>
-                                    &nbsp;&nbsp;&nbsp;&nbsp; <a
-                                        <td><button type="submit" name="link" id class="btn btn-success" value="Delete/<c:out value='${videojuego.id}' />" id="<c:out value='${videojuego.id}' />">Eliminar</button>
-                                            </tr>
-                                        </c:forEach>
-                                        </form>
-                                        </tbody>
-                                        </table>
-                                        </div>
-                                        </div>
-                                        </body>
-                                        </html>
+                                <td><button type="submit" name="link" id class="btn btn-warning" value="Edit/<c:out value='${videojuego.id}' />" id="<c:out value='${videojuego.id}' />">Editar</button>
+                                <td><button type="submit" name="link" id class="btn btn-danger" value="Delete/<c:out value='${videojuego.id}' />" id="<c:out value='${videojuego.id}' />">Eliminar</button>
+                                <td><button type="submit" name="link" id class="btn btn-info" value="Sell/<c:out value='${videojuego.id}' />" id="<c:out value='${videojuego.id}' />">Vender</button>
+                            </tr>
+                        </c:forEach>
+                    </form>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

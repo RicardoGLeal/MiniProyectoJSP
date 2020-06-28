@@ -1,7 +1,5 @@
 package servletPackage;
 
-import Models.Pelicula;
-import Models.VentaPelicula;
 import Models.VentaVideojuego;
 import Models.Videojuego;
 import java.io.IOException;
@@ -237,7 +235,7 @@ public class Videojuegos extends HttpServlet {
         String distribuidora = request.getParameter("distribuidora");
         String clasificacion = request.getParameter("clasificacion");
         con.actualizarVideojuego(new Videojuego(id, titulo, año, desarrollador, distribuidora, clasificacion));
-        response.sendRedirect("Peliculas");
+        response.sendRedirect("Videojuegos");
     }
 
     /**

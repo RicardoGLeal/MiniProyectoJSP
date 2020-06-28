@@ -43,7 +43,7 @@
                             <label>Título</label> <input type="text" value="<c:out value='${videojuego.titulo}' />" class="form-control" name="nombre" required="required">
                         </fieldset>
                         <fieldset class="form-group">
-                            <label>Año</label> <input type="number" value="<c:out value='${videojuego.año}' />" class="form-control" name="año">
+                            <label>Año</label> <input type="number" value="<c:out value='${videojuego.año}' />" class="form-control" name="ano">
                         </fieldset>
                         <fieldset class="form-group">
                             <label>Desarrollador</label> <input type="text" value="<c:out value='${videojuego.desarrollador}' />" class="form-control" name="desarrollador">
