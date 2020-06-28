@@ -68,6 +68,10 @@ public class Libro {
     
     public Libro(String titulo, int año, String autor, String sinopsis, String editorial)
     {
+<<<<<<< HEAD
+        
+=======
+>>>>>>> 15a73b1d7d8d9e22cae4914036658b0db6a2c528
         this.titulo = titulo;
         this.año = año;
         this.autor = autor;
